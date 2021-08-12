@@ -6,8 +6,11 @@ import { sendSingUp } from './lib/data.js';
 const main = document.getElementById('main');
 
 router();
+document.getElementById("id_home_text_registro").addEventListener("click",x);
 
-  
+function x(){
+    console.log("Si entro")
+}
 
  
 async function fnSignUp(e) {
