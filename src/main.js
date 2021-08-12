@@ -1,9 +1,12 @@
 import { pages } from './lib/templates.js';
 import { sendSingUp } from './lib/data.js';
 
+
+
 const main = document.getElementById('main');
 
-document.getElementById('btn_menu_sign_up').addEventListener('click', fnShowSingUp);
+router();
+
   
 
  
@@ -41,7 +44,7 @@ function fnShowSingUp() {
 function router(){
     switch(window.location.pathname){
         case "/" : 
-          main.innerHTML="pagina principal";
+          main.innerHTML=pages.home.template;
           break;
         case "/singup":
             main.innerHTML=pages.signUp.template;
