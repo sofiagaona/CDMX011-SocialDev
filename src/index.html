@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <nav class="menu_superior">
+      <ul class="menu_superior_izquierdo">
+        <li><a class="menu_boton invisible"><img class="menu_icono"  src="./img/iconback.png" alt=""></a></li>
+        <li><a class="menu_boton"><img class="menu_icono" src="./img/iconhome.png" alt=""></a></li>
+        <li><a class="menu_boton"><img class="menu_icono" src="./img/iconperfil.png" alt=""></a></li>
+      </ul>
+      <ul class="menu_superior_derecho">
+        <li><a class="menu_boton" id="btn_menu_sign_up">Sign up</a></li>
+        <li><a class="menu_boton" >Log in</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main">
+
+  </main>
+
+
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyD95lObWqL7K6HFLAvcCamT07-55KLdexw",
+    authDomain: "socialdev-54e36.firebaseapp.com",
+    projectId: "socialdev-54e36",
+    storageBucket: "socialdev-54e36.appspot.com",
+    messagingSenderId: "920264452743",
+    appId: "1:920264452743:web:24938e69302c4111dce622"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
