@@ -144,10 +144,8 @@ color: rgba(252, 163, 17, 0.6);
 }
 
 .home_box_img_stickers{
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 750px;
+    margin: 20px;
 
 }
 
