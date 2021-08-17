@@ -14,7 +14,7 @@
     "eslint": "eslint --ext .js src/ test/",
     "stylelint": "stylelint --aei src/**/*.css",
     "pretest": "npm run htmlhint && npm run eslint && npm run stylelint",
-    "test": "jest --coverage",
+    "test": "jest --coverage --watch",
     "start": "serve -s src/"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^24.1.0",
     "htmlhint": "^0.15.1",
-    "jest": "^27.0.1",
+    "jest": "^26.6.3",
     "regenerator-runtime": "^0.13.1",
     "serve": "^12.0.0",
     "stylelint": "^13.13.1",

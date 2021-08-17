@@ -8,6 +8,7 @@
 .menu_superior {
     display: flex;
     position: relative;
+    
     width: 100%;
     height: 63px;
     left: -5px;
@@ -22,11 +23,7 @@
     height: 100%;
 }
 
-.menu_superior_derecho {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
+
 
 .menu_boton{
     margin: 10px;
@@ -47,78 +44,97 @@
     height: 34px;
     left: 0px;
     top: 14px;
-   font-family: Work Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 34px;
-line-height: 40px;
-text-align: center;
-letter-spacing: -0.02em;
-color: rgba(252, 163, 17, 0.6);
+    font-family: 'Work Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: rgba(252, 163, 17, 0.6);
 }
 
 .invisible {
     display: none;
 }
 
-.fondo_ventana_modal {
-    display:flex;
+.box_singup{
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background:rgba(242, 242, 242, 0.357);
-}
-
-.ventana_modal_registro {
-    display: flex;
     flex-direction: column;
+    
+    
+}
+.form{
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    background-color: gray;
-    border-radius: 5px;
-    width: 80%;
-    height: 70%;
-}
-
-.sign_up_form {
-    display: flex;
     flex-direction: column;
-    align-items: center;
+
+}
+.form input{
+    width: 45vmax;
+    height: 7vmin;
+    background: #FCA311;
+    outline-color:#FCA311;
+    opacity: 0.6;
+    border-radius: 2vmin;
+    margin-bottom: 7vmin;
+   border-style: none;
+   font-family:'Work Sans', sans-serif;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 6vmin;
+   padding-left: 2vmin;
+   text-align: left;
+   letter-spacing: -0.02em;
+   color:  rgba(20, 33, 61, 0.9);
 }
 
-.sign_up_form input {
-    margin: 10px;
-    border-radius: 5px;
-    height: 20px;
-    padding: 5px;
+.form>input::placeholder{
+font-family: 'Work Sans', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 5vmin;
+padding-left: 3vmin;
+text-align: left;
+letter-spacing: -0.02em;
+color: rgba(255, 255, 255, 0.8);
 }
 
-.sign_up_form label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.sign_up_form {
-    width: 169px;;
-}
-
-.sign_up_google {
-    margin: 10px;
-}
-
-.sign_up_button {
-    height: auto;
-    padding: 5px;
-    width: 180px;
-}
+.linea {
+    
+    border-top: .3vmin solid hsl(225, 20%, 60%);
+    width: 80vmin;
+    background-color: hsl(225, 20%, 60%);
+    margin-bottom: 10vmin;
+    
+  }
+  .lineaform{
+    border-top: .3vmin solid hsl(225, 20%, 60%);
+    width: 80vmin;
+    background-color: hsl(225, 20%, 60%);
+    margin-bottom: 10vmin;
+  }
+  .btnRegistrar{
+    width: 45vmax;
+    height: 10vmin;
+    background: rgba(20, 33, 61, 0.7);
+    border-radius: 10px;
+    font-family: 'Work Sans', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 5vmin;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2vmin;
+    border-style: none;
+  }
 
 .subtitle{
-    font-family: Work Sans;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 25px;
@@ -140,20 +156,32 @@ color: rgba(252, 163, 17, 0.6);
     display: flex;
     top: 80px;
     flex-direction: column;
+    margin:0%;
     
 }
 
 .home_box_img_stickers{
     max-width: 750px;
+<<<<<<< HEAD
     margin: 20px;
+=======
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+   margin-left: 2%;
+   margin-right: 2%;
+   text-align: center;
+  
+>>>>>>> 7c74494fce57250ac021ed51e88de8035f364e29
 
 }
 
 .home_img_stickers{
     width: 95%;
-    left: 1px;
+    
     background: url(stickers.jpg);
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
+    opacity: .9;
 }
 
 .home_box_login{
@@ -170,14 +198,14 @@ color: rgba(252, 163, 17, 0.6);
     background: rgba(20, 33, 61, 0.7);
     border-radius: 5px;
     border-style: none;
-    font-family: Work Sans;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 24px;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
-    color: black;
+    color: rgba(20, 33, 61, 0.9);
 }
 
 .home_btn_login_google{
@@ -188,35 +216,52 @@ color: rgba(252, 163, 17, 0.6);
     background: rgba(252, 163, 17, 0.7);
     border-radius: 5px;
     border-style: none;
-    font-family: Work Sans;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 24px;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
-    color: black;
+    color: rgba(20, 33, 61, 0.9);
 }
 
 .home_text_01{
-    margin-top: 12%;
-    font-family: Work Sans;
+    margin-top: 10%;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 24px;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
+    color: rgba(20, 33, 61, 0.9);
 }
 
 .home_text_02{
-    font-family: Work Sans;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
+    color: rgba(20, 33, 61, 1);
+    margin-bottom: 3%;
+}
+
+.text_register{
+    font-family: 'Work Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 7vmin;
+   
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: rgba(20, 33, 61, 0.6);
+    margin-top:5vmin;
+    margin-bottom: 2vmin;
+    
 }
 
 /* pC
