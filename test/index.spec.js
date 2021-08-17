@@ -1,13 +1,17 @@
-// importamos la funcion que vamos a testear
+test('Check addTodo able add todo to todoList', () => {
+  document.body.innerHTML = `
+    <input id="newTodoInput" />
+    <button id="addTodoBtn">Add todo</button>
+    <ol id="todoList"></ol>
+  `;
+  require('../src/todolist.js');
 
-import { firebase } from '../src/lib/templates';
-import { sendSingUp } from '../src/lib/data';
+  const newTodoInput = document.getElementById('newTodoInput');
+  const addTodoBtn = document.getElementById('addTodoBtn');
+  const todolist = document.getElementById('todoList');
 
-describe('sendSingUp', () => {
-  it('debería ser una función', () => {
-    expect(typeof sendSingUp).toBe('function');
-  });
-  it('debería retornar user', () => {
-    expect(sendSingUp('ratatrampa@google.com', '123456')).toBe(Object);
-  });
+  newTodoInput.value = 'New todolist!';
+  addTodoBtn.click();
+
+  expect(todolist.innerHTML).toBe('<li>New todolist!</li>');
 });
