@@ -1,16 +1,9 @@
 export const pages = {
-<<<<<<< HEAD
-  home: {
-    path: '/',
-    template:
-        `<section class="page_home">
-=======
   home:
   {
     path: '/',
     template:
       `<section class="page_home">
->>>>>>> 7c74494fce57250ac021ed51e88de8035f364e29
 
         <p class="subtitle" > Unete a la comunidad mas grande de desarrolladores!!! </p>
 
@@ -24,7 +17,10 @@ export const pages = {
             <input type="button" class="home_btn_login" id="id_home_btn_login" value="LogIn"></input>
             <input type="button" class="home_btn_login_google" id="id_home_btn_login_google" value="Cuenta de Google"></input>
             <p class="home_text_01">¿Aun no tienes cuenta?</p>
-            <div class="home_text_02" id="id_home_text_registro"></div>
+            <div class="home_text_02" id="id_home_text_registro">
+              <p class=".btnMenuReg">Registrate</p>
+            </div>
+          
 
           </div>
 
@@ -32,8 +28,6 @@ export const pages = {
           
         </section>
         `,
-<<<<<<< HEAD
-=======
   },
   singUp: {
     path: '/singup',
@@ -79,6 +73,5 @@ export const pages = {
   </section>
   `,
 
->>>>>>> 7c74494fce57250ac021ed51e88de8035f364e29
   },
 };

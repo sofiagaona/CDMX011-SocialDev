@@ -162,9 +162,6 @@ color: rgba(255, 255, 255, 0.8);
 
 .home_box_img_stickers{
     max-width: 750px;
-<<<<<<< HEAD
-    margin: 20px;
-=======
     /*display: flex;
     flex-direction: column;
     align-items: center;*/
@@ -172,7 +169,6 @@ color: rgba(255, 255, 255, 0.8);
    margin-right: 2%;
    text-align: center;
   
->>>>>>> 7c74494fce57250ac021ed51e88de8035f364e29
 
 }
 

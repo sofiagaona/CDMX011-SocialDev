@@ -1,4 +1,3 @@
-
 export function createBtnReg() {
   const btnMenuRegistrar = document.createElement('button');
   const divRegisterBtn = document.createElement('div');

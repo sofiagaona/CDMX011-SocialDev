@@ -28,7 +28,8 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "warn",
     "no-use-before-define": ["error", {"functions": false, "classes": false}],
-    "no-unused-vars":"warn"
+    "no-unused-vars":"warn",
+    "no-case-declarations":"warn"
   
   }
 }

@@ -1,54 +1,11 @@
 import { pages } from './lib/templates.js';
-<<<<<<< HEAD
-import { sendSingUp } from './lib/data.js';
-
-const main = document.getElementById('main');
-
-function router() {
-  switch (window.location.pathname) {
-    case '/':
-      main.innerHTML = pages.home.template;
-      break;
-    case '/singup':
-      main.innerHTML = pages.signUp.template;
-      break;
-    default:
-      window.history.pushState({}, '', '/');
-      break;
-  }
-}
-
-router();
-
-async function fnSignUp(e) {
-  e.preventDefault();
-  const sign_Up_Password1 = document.getElementById('sign_up_password1').value;
-  const sign_Up_Password2 = document.getElementById('sign_up_password2').value;
-  const sign_Up_Email = document.getElementById('sign_up_email').value;
-  const sign_Up_Password_Error = document.getElementById('sign_up_password_error');
-  const sign_Up_User_Mane = document.getElementById('sign_up_user_mane');
-
-    if (sign_Up_Password1 === sign_Up_Password2){
-      const message = await sendSingUp(sign_Up_Email, sign_Up_Password1)
-      console.log(message);
-        if (firebase.auth().currentUser){
-       
-        sign_Up_Password_Error.innerHTML = message;
-        }
-       else{
-        sign_Up_Password_Error.innerHTML = message;
-
-        }
-    } 
-    else {
-        sign_Up_Password_Error.innerHTML = "Las contraseñas no son iguales"
-    } 
-}
-=======
 import { sendSingUp, sendLogin } from './lib/data.js';
-import { createBtnReg } from './lib/elementTest.js';
 
-const main = document.getElementById('main');
+export const obj_main = document.createElement('main');
+
+document.body.appendChild(obj_main);
+
+//const main = document.getElementById('main');
 
 async function fnSignUp(e) {
   e.preventDefault();
@@ -60,7 +17,7 @@ async function fnSignUp(e) {
     const message = await sendSingUp(signUpEmail, signUpPassword1);
     if (firebase.auth().currentUser) {
       signUpPasswordError.innerHTML = message;
-    } else {
+    } else {addel
       signUpPasswordError.innerHTML = message;
     }
   } else {
@@ -91,22 +48,23 @@ function fnPagesLogin() {
   router();
 }
 
-export function router() {
-  console.log(window.location.pathname);
+function router() {
+  
   switch (window.location.pathname) {
     case '/':
-      main.innerHTML = pages.home.template;
-      const btnMenuRegistrar = createBtnReg();
-      document.getElementById('id_home_text_registro').appendChild(btnMenuRegistrar);
-      btnMenuRegistrar.addEventListener('click', fnPageSignUp);
+      obj_main.innerHTML = pages.home.template;
+      const obj_boton_singup = document.getElementById('id_home_text_registro');
+      obj_boton_singup.addEventListener('click', fnPageSignUp);
       document.getElementById('id_home_btn_login').addEventListener('click', fnPagesLogin);
       break;
     case '/singup':
-      main.innerHTML = pages.singUp.template;
-      document.getElementById('sign_up_form').addEventListener('submit', fnSignUp);
+      obj_main.innerHTML = pages.singUp.template;
+      console.log(obj_main.innerHTML);
+      const obj_sing_up_form = obj_main;
+      obj_sing_up_form.addEventListener('submit', fnSignUp);
       break;
     case '/login':
-      main.innerHTML = pages.login.template;
+      obj_main.innerHTML = pages.login.template;
       document.getElementById('login_form').addEventListener('submit', fnLogin);
       break;
     default:
@@ -114,5 +72,7 @@ export function router() {
       break;
   }
 }
+
 router();
->>>>>>> 7c74494fce57250ac021ed51e88de8035f364e29
+
+
