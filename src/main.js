@@ -5,6 +5,20 @@ export const obj_main = document.createElement('main');
 
 document.body.appendChild(obj_main);
 
+
+console.log(window.location.pathname);
+if(window.location.pathname != "/"){
+  const origin_path = window.location.pathname;
+  console.log("y");
+}
+else{
+  let origin_path = "s";
+  console.log("n");
+}
+
+
+console.log(origin_path);
+
 router();
 
 //const main = document.getElementById('main');
@@ -53,28 +67,29 @@ function fnPagesLogin() {
 function router() {
   
   switch (window.location.pathname) {
-    case '/':
+    case origin_path + '/':
       obj_main.innerHTML = pages.home.template;
       const obj_boton_singup = document.getElementById('id_home_text_registro');
       obj_boton_singup.addEventListener('click', fnPageSignUp);
       document.getElementById('id_home_btn_login').addEventListener('click', fnPagesLogin);
       break;
-    case '/singup':
+    case origin_path + '/singup':
       obj_main.innerHTML = pages.singUp.template;
       console.log(obj_main.innerHTML);
       const obj_sing_up_form = obj_main;
       obj_sing_up_form.addEventListener('submit', fnSignUp);
       break;
-    case '/login':
+    case origin_path + '/login':
       obj_main.innerHTML = pages.login.template;
       document.getElementById('login_form').addEventListener('submit', fnLogin);
       break;
     default:
       window.history.pushState({}, '', '/');
-      router();
       break;
   }
 }
+
+
 
 
 

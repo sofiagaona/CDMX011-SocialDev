@@ -10,7 +10,7 @@ export const pages = {
         <div class="home_content_login">
 
           <div class="home_box_img_stickers">
-            <img class="home_img_stickers" src="../img/stickers.jpeg">
+            <img class="home_img_stickers" src="https://anasofiamoreno.github.io/CDMX011-SocialDev/img/stickers.jpeg">
           </div>
 
           <div class="home_box_login">
