@@ -47,7 +47,7 @@
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: bold;
-    font-size: 34px;
+    font-size: 2em;
     line-height: 40px;
     text-align: center;
     letter-spacing: -0.02em;
@@ -58,74 +58,78 @@
     display: none;
 }
 
+.box_general_singup{
+  width: 100%;
+  height: 100%;
+}
+
 .box_singup{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;  
 }
 .form{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    width: 100%;
 }
 .form input{
-    width: 45vmax;
-    height: 7vmin;
-    background: #FCA311;
-    outline-color:#FCA311;
-    opacity: 0.6;
-    border-radius: 2vmin;
-    margin-bottom: 7vmin;
-   border-style: none;
-   font-family:'Work Sans', sans-serif;
-   font-style: normal;
-   font-weight: normal;
-   font-size: 6vmin;
-   padding-left: 2vmin;
-   text-align: left;
-   letter-spacing: -0.02em;
-   color:  rgba(20, 33, 61, 0.9);
+  width: 90%;
+  background: #FCA311;
+  outline-color:#FCA311;
+  opacity: 0.6;
+  border-radius: 2vmin;
+  margin-bottom: 7vmin;
+  border-style: none;
+  font-family: 'Work Sans', sans-serif;
+  font-style:normal;
+  font-weight:bold;
+  font-size: 1em;
+  padding: .25em;
+  text-align: left;
+  color:  rgba(20, 33, 61);
+  flex: 1 1 auto
 }
 
 .form>input::placeholder{
-font-family: 'Work Sans', sans-serif;
-font-style: normal;
-font-weight: normal;
-font-size: 5vmin;
-padding-left: 3vmin;
-text-align: left;
-letter-spacing: -0.02em;
 color: rgba(255, 255, 255, 0.8);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .linea {
     
     border-top: .3vmin solid hsl(225, 20%, 60%);
-    width: 80vmin;
+    width: 90%;
     background-color: hsl(225, 20%, 60%);
-    margin-bottom: 10vmin;
+    margin-bottom: 1em;
     
   }
   .lineaform{
     border-top: .3vmin solid hsl(225, 20%, 60%);
-    width: 80vmin;
+    width: 90%;
     background-color: hsl(225, 20%, 60%);
-    margin-bottom: 10vmin;
+    margin-bottom: 1em;
   }
   .btnRegistrar{
-    width: 45vmax;
-    height: 10vmin;
+    width: 40%;
+    height: 10%;
     background: rgba(20, 33, 61, 0.7);
     border-radius: 10px;
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 5vmin;
+    font-size: 2.5vmax;
+    font-weight: bold;
     text-align: center;
     letter-spacing: -0.02em;
     color: rgba(255, 255, 255, 0.8);
@@ -137,8 +141,7 @@ color: rgba(255, 255, 255, 0.8);
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 25px;
-    line-height: 29px;
+    font-size: 2.5vmax;
     text-align: center;
     letter-spacing: -0.02em;
     color: rgba(20, 33, 61, 0.8);
@@ -161,29 +164,24 @@ color: rgba(255, 255, 255, 0.8);
 }
 
 .home_box_img_stickers{
-    max-width: 750px;
-    /*display: flex;
-    flex-direction: column;
-    align-items: center;*/
-   margin-left: 2%;
-   margin-right: 2%;
-   text-align: center;
-  
-
+  max-width: 750px;
+  margin-left: 2%;
+  margin-right: 2%;
+  text-align: center;
 }
 
 .home_img_stickers{
-    width: 95%;
-    
-    background: url(stickers.jpg);
-    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
-    opacity: .9;
+  width: 95%;
+  background: url(stickers.jpg);
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
+  opacity: .9;
 }
 
 .home_box_login{
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .home_btn_login{
@@ -197,7 +195,7 @@ color: rgba(255, 255, 255, 0.8);
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 24px;
+    font-size: 2em;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
@@ -215,7 +213,7 @@ color: rgba(255, 255, 255, 0.8);
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 24px;
+    font-size: 2em;
     line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
@@ -250,15 +248,148 @@ color: rgba(255, 255, 255, 0.8);
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: bold;
-    font-size: 7vmin;
-   
+    font-size: 2em;
     text-align: center;
     letter-spacing: -0.02em;
     color: rgba(20, 33, 61, 0.6);
-    margin-top:5vmin;
-    margin-bottom: 2vmin;
+    margin-top:1em;
+    margin-bottom:1em;
     
 }
+
+@media screen and (min-width : 450px) and (max-width : 639px){
+
+    .home_box_img_stickers{  
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: center;
+    }
+
+    .home_content_login{
+    position: relative;
+    align-items: center;
+    justify-content: center;        
+    }
+ 
+
+
+}
+
+@media(min-width : 640px) and (max-width : 1014px){
+
+  .home_content_login{
+    top : 5%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    height: 100%;
+  }
+
+ .home_box_login{
+    width: 40%;
+  }
+
+  .subtitle{
+    margin-top : 3%;
+    font-size: 4vmin;
+  }
+
+  .home_img_stickers{
+
+    
+}
+
+.page_home{
+  width: 100%;
+}
+  
+
+.home_box_img_stickers{
+width: 40%;
+}
+
+
+}
+
+@media(min-width : 1015px){
+
+.home_content_login{
+  top : 0%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+
+}
+
+.home_box_login{
+  width: 30%;
+}
+
+.subtitle{
+  margin-top : 5%;
+  margin-bottom: 5%;
+  font-size: 4vmin;
+}
+
+.home_img_stickers{
+
+    
+}
+
+
+  
+  .btnRegistrar{
+    font-size: 2.5vmin;
+  }
+
+.home_box_img_stickers{
+  width: 40%;
+}
+
+.form input{
+  font-size: 2.5vmin;
+  width: 35vmin;
+  height: 4vmin;
+  margin-bottom: 5vmin;
+  padding-left: 2vmin
+}
+
+
+.box_general_singup{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box_singup{
+  width: 40%;
+  height: 90%;
+}
+
+.form{
+  width: 100%;
+  background-color: aquamarine;
+}
+
+.lineaform{
+  margin-bottom: 5vmin;
+}
+
+.linea {
+  margin-bottom: 5vmin;
+}
+
+.form{
+  width: 100%;
+  background-color: aquamarine;
+}
+
+}
+
+
 
 /* pC
 

@@ -18,7 +18,7 @@ async function fnSignUp(e) {
     if (firebase.auth().currentUser) {
       signUpPasswordError.innerHTML = message;
     } else {addel
-      signUpPasswordError.innerHTML = message;
+      signUpPasswordError.innerHTML = 'Usuario o contraseña no son validos';
     }
   } else {
     signUpPasswordError.innerHTML = 'Las contraseñas no son iguales';

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { createBtnReg } from '../src/lib/elementTest.js';
-import { fnPageSignUp, obj_main, router } from '../src/main.js';
+import { fnPageSignUp, obj_main} from '../src/main.js';
 import { pages } from '../src/lib/templates.js';
 
 
