@@ -6,15 +6,13 @@
 }
 
 .menu_superior {
-    display: flex;
-    position: relative;
-    
-    width: 100%;
-    height: 63px;
-    left: -5px;
-    top: 0px;
-    background: rgba(20, 33, 61, 0.7);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 63px;
+  top: 0px;
+  background: rgba(20, 33, 61, 0.7);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  
 }
 
 .menu_superior_izquierdo {
@@ -82,13 +80,13 @@
   background: #FCA311;
   outline-color:#FCA311;
   opacity: 0.6;
-  border-radius: 2vmin;
-  margin-bottom: 7vmin;
+  border-radius: 10px;
+  margin-bottom: 1em;
   border-style: none;
   font-family: 'Work Sans', sans-serif;
   font-style:normal;
   font-weight:bold;
-  font-size: 1em;
+  font-size: 1.5em;
   padding: .25em;
   text-align: left;
   color:  rgba(20, 33, 61);
@@ -121,20 +119,21 @@ input:-webkit-autofill:active {
     margin-bottom: 1em;
   }
   .btnRegistrar{
-    width: 40%;
-    height: 10%;
+    margin-top: 12%;
+    position: relative;
+    width: 90%;
+    height: 48px;
     background: rgba(20, 33, 61, 0.7);
-    border-radius: 10px;
+    border-radius: 5px;
+    border-style: none;
     font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 2.5vmax;
-    font-weight: bold;
+    font-size: 2em;
+    line-height: 28px;
     text-align: center;
     letter-spacing: -0.02em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2vmin;
-    border-style: none;
+    color: rgba(20, 33, 61, 0.9);
   }
 
 .subtitle{
@@ -347,13 +346,7 @@ width: 40%;
   width: 40%;
 }
 
-.form input{
-  font-size: 2.5vmin;
-  width: 35vmin;
-  height: 4vmin;
-  margin-bottom: 5vmin;
-  padding-left: 2vmin
-}
+
 
 
 .box_general_singup{
@@ -365,13 +358,12 @@ width: 40%;
 }
 
 .box_singup{
-  width: 40%;
+  width: 100%;
   height: 90%;
 }
 
 .form{
-  width: 100%;
-  background-color: aquamarine;
+  width: 30%;
 }
 
 .lineaform{
@@ -382,10 +374,6 @@ width: 40%;
   margin-bottom: 5vmin;
 }
 
-.form{
-  width: 100%;
-  background-color: aquamarine;
-}
 
 }
 

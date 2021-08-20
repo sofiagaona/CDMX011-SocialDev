@@ -5,6 +5,8 @@ export const obj_main = document.createElement('main');
 
 document.body.appendChild(obj_main);
 
+router();
+
 //const main = document.getElementById('main');
 
 async function fnSignUp(e) {
@@ -69,10 +71,11 @@ function router() {
       break;
     default:
       window.history.pushState({}, '', '/');
+      router();
       break;
   }
 }
 
-router();
+
 
 
