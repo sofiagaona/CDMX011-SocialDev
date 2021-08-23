@@ -19,6 +19,7 @@ export const pages = {
             <p class="home_text_01">¿Aun no tienes cuenta?</p>
             <div class="home_text_02" id="id_home_text_registro">
               <p class=".btnMenuReg">Registrate</p>
+              <p id="loginErrorGoogle"></p>
             </div>
           
 
@@ -28,6 +29,10 @@ export const pages = {
           
         </section>
         `,
+  },
+  home2:{
+    path: '/',
+    template: '<p>Bienvenido a menu principal</p>',
   },
   singUp: {
     path: '/singup',

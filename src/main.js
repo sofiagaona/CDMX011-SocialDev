@@ -1,12 +1,15 @@
 import { pages } from './lib/templates.js';
-import { sendSingUp, sendLogin } from './lib/data.js';
+import { sendSingUp, sendLogin, sendLoginGoogle } from './lib/data.js';
+
 
 export const obj_main = document.createElement('main');
 
 document.body.appendChild(obj_main);
+var userState = firebase.auth().currentUser;
+console.log(userState);
 
 
-console.log(window.location.pathname);
+/*console.log(window.location.pathname);
 if(window.location.pathname != "/"){
   const origin_path = window.location.pathname;
   console.log("y");
@@ -17,7 +20,7 @@ else{
 }
 
 
-console.log(origin_path);
+console.log(origin_path);*/
 
 router();
 
@@ -32,8 +35,9 @@ async function fnSignUp(e) {
   if (signUpPassword1 === signUpPassword2) {
     const message = await sendSingUp(signUpEmail, signUpPassword1);
     if (firebase.auth().currentUser) {
-      signUpPasswordError.innerHTML = message;
-    } else {addel
+      window.history.pushState({}, '', pages.home2.path);
+      router();
+    } else {
       signUpPasswordError.innerHTML = 'Usuario o contraseña no son validos';
     }
   } else {
@@ -49,11 +53,24 @@ async function fnLogin(e) {
 
   const message = await sendLogin(loginEmail, loginPassword);
   if (firebase.auth().currentUser) {
-    loginError.innerHTML = message;
+    window.history.pushState({}, '', pages.home2.path);
+    router();
   } else {
     loginError.innerHTML = message;
   }
 }
+async function fnLoginGoogle() {
+  const loginError = document.getElementById('loginErrorGoogle');
+  const provider = new firebase.auth.GoogleAuthProvider();
+  const message = await sendLoginGoogle(provider);
+  try {
+    window.history.pushState({}, '', pages.home2.path);
+    router();
+  } catch (error) {
+    loginError.innerHTML = message;
+  }
+}
+
 export function fnPageSignUp() {
   window.history.pushState({}, '', pages.singUp.path);
   router();
@@ -65,32 +82,35 @@ function fnPagesLogin() {
 }
 
 function router() {
-  
+  userState = firebase.auth().currentUser;
+  console.log(userState);
   switch (window.location.pathname) {
-    case origin_path + '/':
-      obj_main.innerHTML = pages.home.template;
-      const obj_boton_singup = document.getElementById('id_home_text_registro');
-      obj_boton_singup.addEventListener('click', fnPageSignUp);
-      document.getElementById('id_home_btn_login').addEventListener('click', fnPagesLogin);
+    case '/':
+      if (userState) {
+        obj_main.innerHTML = pages.home2.template;
+      } else {
+        obj_main.innerHTML = pages.home.template;
+        const obj_boton_singup = document.getElementById('id_home_text_registro');
+        obj_boton_singup.addEventListener('click', fnPageSignUp);
+        document.getElementById('id_home_btn_login').addEventListener('click', fnPagesLogin);
+        document.getElementById('id_home_btn_login_google').addEventListener('click', fnLoginGoogle);
+      }
       break;
-    case origin_path + '/singup':
+    case '/singup':
       obj_main.innerHTML = pages.singUp.template;
       console.log(obj_main.innerHTML);
       const obj_sing_up_form = obj_main;
       obj_sing_up_form.addEventListener('submit', fnSignUp);
+      
       break;
-    case origin_path + '/login':
+    case '/login':
       obj_main.innerHTML = pages.login.template;
       document.getElementById('login_form').addEventListener('submit', fnLogin);
       break;
+      case '/perfil':
+      obj_main.innerHTML = pages.perfil.template;
     default:
       window.history.pushState({}, '', '/');
       break;
   }
 }
-
-
-
-
-
-
