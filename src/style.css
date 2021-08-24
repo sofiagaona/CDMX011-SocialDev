@@ -13,6 +13,9 @@
   top: 0px;
   background: rgba(20, 33, 61, 0.7);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  
+  flex-direction: row;
+  justify-content: space-between;
+  
 }
 
 .menu_superior_izquierdo {
@@ -255,6 +258,43 @@ input:-webkit-autofill:active {
     margin-bottom:1em;
     
 }
+.menu_superior_derecho{
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  margin-right: 5%;
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-size: 1;
+  text-align: center;
+  color: rgba(252, 163, 17, 0.6);
+ 
+}
+
+.dateUserHome{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2em;
+}
+.tittle_home2{
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5em;
+  text-align: center;
+  color: rgba(20, 33, 61, 0.9);
+}
+.nameUser{
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1em;
+  text-align: center;
+  color: rgba(20, 33, 61, 0.7);
+}
+
 
 @media screen and (min-width : 450px) and (max-width : 639px){
 
@@ -373,7 +413,11 @@ width: 40%;
 .linea {
   margin-bottom: 5vmin;
 }
-
+.menu_superior_derecho:hover{
+ 
+  transition-duration: .5s;
+  color:rgba(249, 250, 252, 0.767); 
+}
 
 }
 

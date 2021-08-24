@@ -32,8 +32,12 @@ export const pages = {
   },
   home2:{
     path: '/',
-    template: '<p>Bienvenido a menu principal</p>',
-  },
+    template: `<section class="dateUserHome">
+                 <h1 class="tittle_home2"> Bienvenido a Social </h1>
+                 <p class="nameUser">Nombre usario</p>
+               </section>  
+                 `,
+  }, 
   singUp: {
     path: '/singup',
     template: `
@@ -45,7 +49,7 @@ export const pages = {
           <form id="sign_up_form" class="form" >
             <div class="linea"> </div>
             <label class="invisible"> Nombre del Usuario </label >
-            <input type="text" id="sign_up_user_mane" placeholder="Nombre" required>
+            <input type="text" id="sign_up_user_name" placeholder="Nombre" required>
             <input type="email" id="sign_up_email" placeholder="Correo" required>
             <input type="password" id="sign_up_password1" placeholder="Contraseña" required>
             <input type="password" id="sign_up_password2"  placeholder="Verificar contraseña" required>
