@@ -8,6 +8,7 @@ document.body.appendChild(obj_main);
 var userState = firebase.auth().currentUser;
 console.log(userState);
 
+document.getElementById("ssd").addEventListener("click", () => {console.log("yes");});
 
 /*console.log(window.location.pathname);
 if(window.location.pathname != "/"){
