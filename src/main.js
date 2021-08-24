@@ -5,7 +5,6 @@ let user = [];
 export const obj_main = document.createElement('main');
 document.body.appendChild(obj_main);
 let userState = firebase.auth().currentUser;
-console.log(userState);
 
 document.getElementById('idLogOut').addEventListener('click', fnLogOut);
 // Autenticacion de Usuario al Entrar a la App o al cambiar de estado
@@ -102,17 +101,27 @@ function fnPagesLogin() {
   router();
 }
 
+async function fnReadFromFireStore(uid, type, data){
+
+  const data_ = [];
+
+  try{ data_ = await readfirebase(uid, type, data);}
+  catch(e){console.log("xxxxx");}
+  return data_;
+ 
+  
+}
+
 function router() {
   userState = firebase.auth().currentUser;
-  console.log(userState);
+
   switch (window.location.pathname) {
     case '/':
       if (userState) {
+        const info = fnReadFromFireStore(userState.uid, "userInfo", "name");
+        console.log(info.name);
         obj_main.innerHTML = pages.home2.template;
       } else {
-
-        const info = readfirebase(userState.uid,"name");
-        console.log(info);
         obj_main.innerHTML = pages.home.template;
         const obj_boton_singup = document.getElementById('id_home_text_registro');
         obj_boton_singup.addEventListener('click', fnPageSignUp);
@@ -122,7 +131,6 @@ function router() {
       break;
     case '/singup':
       obj_main.innerHTML = pages.singUp.template;
-      console.log(obj_main.innerHTML);
       const obj_sing_up_form = obj_main;
       obj_sing_up_form.addEventListener('submit', fnSignUp);
       break;

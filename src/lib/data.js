@@ -54,34 +54,19 @@ export function writeFareBase(idUser, type, data) {
 }
 }
 
-export function readfirebase(idUser, type){
+export function readfirebase(idUser, type, data){
 
-  const data;
+  const data_ = firebase.firestore().collection(idUser).doc(type).get()
+    .then((doc) => {
+    
+      console.log("Document data:", doc.data());
+      return doc.data();
+ 
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error.message);
+    });
 
-  switch (type){
-    case "name": 
-
-      var docRef = db.collection(idUser).doc("userInfo");
-
-      docRef.get().then((doc) => {
-        if (doc.exists) {
-            console.log("Document data:", doc.data());
-            data = doc.data();
-
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-      }).catch((error) => {
-        console.log("Error getting document:", error);
-      });
-
-    break;
-
-    default:
-
-  }
-
-  return data;
-
+  return data_;
+  
 }
