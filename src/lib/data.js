@@ -1,8 +1,9 @@
 export function sendSingUp(email, password) {
   const message = firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
+     
       const user = userCredential.user;
-      return 'Registro Exitoso';
+      return user;
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -25,8 +26,30 @@ export function sendLogin(email, password) {
   return message;
 }
 
+export function fnLogOutFb() {
+  return firebase.auth().signOut()
+    .then(() => { 'ok'; })
+    .catch((error) => { 'error'; });
+}
+
 export function sendLoginGoogle(provider) {
   return firebase.auth().signInWithPopup(provider)
     .then((result) => 'Se realizo logeo con cuenta de google')
     .catch((error) => 'Hubo un error en cuanta de google');
 }
+
+export function writeFareBase(idUser, type, data) {
+  switch (type){
+    case 'name': firebase.firestore().collection(idUser).doc('userInfo').set({
+      name: data,
+    })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+      break;
+    default:'Función mal definida';
+}
+  }

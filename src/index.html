@@ -9,21 +9,6 @@
   <title>Document</title>
 </head>
 <body>
-  <header>
-    <nav class="menu_superior">
-      <ul class="menu_superior_izquierdo">
-        <li><a class="menu_boton invisible"><img class="menu_icono"  src="./img/iconback.png" alt="" style="display: none;"></a></li>
-        <li><a class="menu_boton"><img class="menu_icono" src="./img/ico-home.png" alt=""></a></li>
-        <li><a class="menu_boton"><img class="menu_icono" src="./img/iconperfil.png" alt="" style="display: none;"></a></li>
-      </ul>
-      <h1 class="tittle">Social Dev´s</h1>
-     
-    </nav>
-  </header>
-
-
-
-
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
@@ -46,6 +31,25 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
+  <header>
+    <nav id="id_nav" class="menu_superior">
+      <ul class="menu_superior_izquierdo">
+        <li><a class="menu_boton invisible"><img class="menu_icono"  src="./img/iconback.png" alt="" style="display: none;"></a></li>
+        <li><a class="menu_boton"><img class="menu_icono" src="./img/ico-home.png" alt=""></a></li>
+        <li><a class="menu_boton"><img class="menu_icono" src="./img/iconperfil.png" alt="" style="display: none;"></a></li>
+       </ul>
+       <ul class="menu_superior_derecho">
+       <li><a id="idLogOut" class="logout">Logout</a></li> 
+       </ul>
+      <h1 class="tittle">Social Dev´s</h1>
+     
+    </nav>
+  </header>
+  
+
+
+
+  
   <script type="module" src="main.js"></script>
 
  
