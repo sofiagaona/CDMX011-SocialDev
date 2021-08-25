@@ -101,26 +101,20 @@ function fnPagesLogin() {
   router();
 }
 
-async function fnReadFromFireStore(uid, type, data){
-
-  const data_ = [];
-
-  try{ data_ = await readfirebase(uid, type, data);}
-  catch(e){console.log("xxxxx");}
-  return data_;
- 
-  
-}
-
-function router() {
+async function router() {
   userState = firebase.auth().currentUser;
 
   switch (window.location.pathname) {
     case '/':
       if (userState) {
-        const info = fnReadFromFireStore(userState.uid, "userInfo", "name");
-        console.log(info.name);
+        const info = await readfirebase(userState.uid, "name");
+        const img = await readfirebase(userState.uid, "img");
         obj_main.innerHTML = pages.home2.template;
+        document.querySelector(".profileimg").src = img;
+        document.querySelector(".subprofileimg").src = img;
+        document.querySelector(".subnameuser").innerHTML = info;
+        document.querySelector(".nameUser").innerHTML = info;
+        
       } else {
         obj_main.innerHTML = pages.home.template;
         const obj_boton_singup = document.getElementById('id_home_text_registro');

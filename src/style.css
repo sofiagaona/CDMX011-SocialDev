@@ -295,6 +295,74 @@ input:-webkit-autofill:active {
   color: rgba(20, 33, 61, 0.7);
 }
 
+.profileimg{
+  border-radius: 50%;
+  width: 143px;
+  height: 143px;
+  filter: drop-shadow(0px 4px 8px #FCA311);
+  margin: 1em;
+}
+
+.btn_make_post{
+  width: 359px;
+  height: 42px;
+  background: rgba(252, 163, 17, 0.7);
+  border-radius: 5px;
+  border-style: none;
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 2em;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: rgba(20, 33, 61, 0.9);
+}
+
+.box_post{
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  width: 90%;
+  background: rgba(20, 33, 61, 0.3);
+  border-radius: 5px;
+}
+
+.box_post_img{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.subprofileimg{
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0px 4px 2px rgba(20, 33, 61, 0.7));
+  margin: 1em;
+}
+
+.submaneuser{
+
+}
+
+.posted{
+  margin-left: 2em;
+  margin-right: 2em;
+  background: rgba(20, 33, 61, 0.49);
+  border-radius: 5px;
+  padding: 1em;
+  min-height: 100px;
+}
+
+.box_post_btn{
+  margin: 1em 2em 1em 2em;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
 @media screen and (min-width : 450px) and (max-width : 639px){
 
@@ -314,6 +382,8 @@ input:-webkit-autofill:active {
 
 
 }
+
+
 
 @media(min-width : 640px) and (max-width : 1014px){
 

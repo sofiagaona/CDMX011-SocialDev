@@ -54,19 +54,27 @@ export function writeFareBase(idUser, type, data) {
 }
 }
 
-export function readfirebase(idUser, type, data){
+export function readfirebase(idUser, type){
 
-  const data_ = firebase.firestore().collection(idUser).doc(type).get()
-    .then((doc) => {
-    
-      console.log("Document data:", doc.data());
-      return doc.data();
- 
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error.message);
-    });
+  switch(type){
 
-  return data_;
-  
+    case "name":
+      return firebase.firestore().collection(idUser).doc("userInfo").get()
+        .then((doc) => {
+          return doc.data().name;
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error.message);
+        });
+    case "city":
+      break;
+    case "img":
+      return firebase.storage().ref(idUser + '/profileimg.jpg').getDownloadURL().then(function(url) {
+       return url;
+      }).catch(function(error) {
+        // Handle any errors
+      });
+
+    default:
+  }
 }

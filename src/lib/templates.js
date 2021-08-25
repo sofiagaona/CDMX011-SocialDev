@@ -34,7 +34,15 @@ export const pages = {
     path: '/',
     template: `<section class="dateUserHome">
                  <h1 class="tittle_home2"> Bienvenido a Social </h1>
-                 <p class="nameUser">Nombre usario</p>
+                 <p class="nameUser"></p>
+                 <div><img class="profileimg" src=""></div>
+                 <div><input class="btn_make_post" type="button" value="Publicar"></div>
+                 <div class="box_post">
+                 <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
+                 <div class="posted"><p>Esta es una Publicacion</p></div>
+                 <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
+                 <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
+                 </div>
                </section>  
                  `,
   }, 
