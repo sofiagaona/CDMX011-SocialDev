@@ -342,9 +342,6 @@ input:-webkit-autofill:active {
   margin: 1em;
 }
 
-.submaneuser{
-
-}
 
 .posted{
   margin-left: 2em;
@@ -362,6 +359,9 @@ input:-webkit-autofill:active {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.logout{
+  display:none;
 }
 
 @media screen and (min-width : 450px) and (max-width : 639px){
@@ -404,10 +404,7 @@ input:-webkit-autofill:active {
     font-size: 4vmin;
   }
 
-  .home_img_stickers{
 
-    
-}
 
 .page_home{
   width: 100%;
@@ -441,10 +438,7 @@ width: 40%;
   font-size: 4vmin;
 }
 
-.home_img_stickers{
 
-    
-}
 
 
   

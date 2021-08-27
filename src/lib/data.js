@@ -1,7 +1,6 @@
 export function sendSingUp(email, password) {
   const message = firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-     
       const user = userCredential.user;
       return user;
     })
@@ -20,7 +19,7 @@ export function sendLogin(email, password) {
       return user;
     })
     .catch((error) => {
-      const errorMessage = error.message;
+      const errorMessage = 'no coicide correo y contraseña';
       return errorMessage;
     });
   return message;
@@ -39,41 +38,42 @@ export function sendLoginGoogle(provider) {
 }
 
 export function writeFareBase(idUser, type, data) {
-  switch (type){
+  let message;
+  switch (type) {
     case 'name': firebase.firestore().collection(idUser).doc('userInfo').set({
       name: data,
     })
       .then(() => {
-        console.log("Document successfully written!");
+        message = 'Document successfully written!';
       })
       .catch((error) => {
-        console.error("Error writing document: ", error);
+        const messageconcat = 'Error writing document: ' + error;
+        message = messageconcat;
       });
       break;
-    default:'Función mal definida';
+    default: message = 'Función mal definida';
+  }
+  return message;
 }
-}
 
-export function readfirebase(idUser, type){
-
-  switch(type){
-
-    case "name":
-      return firebase.firestore().collection(idUser).doc("userInfo").get()
-        .then((doc) => {
-          return doc.data().name;
-        })
+export function readfirebase(idUser, type) {
+  switch (type) {
+    case 'name':
+      return firebase.firestore().collection(idUser).doc('userInfo').get()
+        .then((doc) => doc.data().name)
         .catch((error) => {
-          console.log("Error getting document:", error.message);
+          console.log('Error getting document:', error.message);
         });
-    case "city":
+    case 'city':
       break;
-    case "img":
-      return firebase.storage().ref(idUser + '/profileimg.jpg').getDownloadURL().then(function(url) {
-       return url;
-      }).catch(function(error) {
+    case 'img':
+      return firebase.storage().ref(idUser + '/profileimg.jpg').getDownloadURL().then((url) => {
+        console.log(url);
+        return url;
+      })
+        .catch((error) => {
         // Handle any errors
-      });
+        });
 
     default:
   }
