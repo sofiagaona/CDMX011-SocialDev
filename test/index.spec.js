@@ -1,28 +1,30 @@
 /**
  * @jest-environment jsdom
  */
+import './globals/firebase.js';
 import MockFirebase from 'mock-cloud-firestore';
 import * as admin from "firebase-admin";
-import { firebase } from './firebase-mock';
+// import { firebase } from './firebase-mock';
 import { createBtnReg } from '../src/lib/elementTest.js';
+import { sendLogin } from '../src/lib/data.js';
 import {
   fnPageSignUp, objMain, fnPagesLogin, fnLogin,
 } from '../src/lib/nodemod';
 import { pages } from '../src/lib/templates.js';
 
-// configurando firebase mock
+/* configurando firebase mock
 const firebasemock = firebase;
 const mockauth = new firebasemock.MockFirebase();
 const mockfirestore = new firebasemock.MockFirestore();
 mockfirestore.autoFlush();
-mockauth.autoFlush();
+mockauth.autoFlush(); */
 
-global.firebase = firebasemock.MockFirebaseSdk(
+/* global.firebase = firebasemock.MockFirebaseSdk(
   // use null if your code does not use RTDB
   () => null,
   () => mockauth,
   () => mockfirestore,
-);
+); */
 /* global.firebase = new MockFirebase();
 const btnMenuRegister = createBtnReg(); */
 
@@ -63,10 +65,35 @@ describe('Pruebas de Red Social', () => {
     objBotonLogin.click();
     expect(messageLogin).toBe("   ");
   }); */
-  test('deberia iniciar sesion', async () => {
-    await fnLogin('sofiah@1234.com', '12345678')
-      .try((user) => {
+  test('deberia iniciar sesion', () => {
+    const email = 'sofiah@1234.com';
+    const password = '12345678';
+    const user = { email, uid: 'xxxxxxx' };
+    const mockSignInWithEmailAndPassword = jest.fn();
+    mockSignInWithEmailAndPassword.mockResolvedValue(user);
+    const mockFirebaseAuth = {
+      signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
+      currentUser: user,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    sendLogin(email, password)
+      .then((user) => {
         expect(user.email).toBe('sofiah@1234.com');
+      });
+  });
+  test('Deberia mostrar error al iniciar sesion con credenciales invalidas', () => {
+    const email = 'sofia@error.com';
+    const password = '123456789';
+    const messageError = 'Credenciales invalidas';
+    const mockSignInWithEmailAndPassword = jest.fn();
+    mockSignInWithEmailAndPassword.mockResolvedValue(new Error(messageError));
+    const mockFirebaseAuth = {
+      signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    sendLogin(email, password)
+      .catch((error) => {
+        expect(error).toBe('Credenciales invalidas');
       });
   });
 });

@@ -37,8 +37,9 @@
     "no-unneeded-ternary":"warn",
     "no-confusing-arrow":"warn",
     "quotes":"warn",
-    "arrow-body-style":"warn",
+    "arrow-body-style":"off",
     "no-restricted-syntax":"warn"
+  
 
 
 
