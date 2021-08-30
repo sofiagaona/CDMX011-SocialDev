@@ -1,30 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import MockFirebase from 'mock-cloud-firestore';
-import * as admin from "firebase-admin";
-import { firebase } from './firebase-mock';
-import { createBtnReg } from '../src/lib/elementTest.js';
-import {
-  fnPageSignUp, objMain, fnPagesLogin, fnLogin,
-} from '../src/lib/nodemod';
+
+import firebases from './firebasenew-mock';
+import { objMain,fnPagesLogin, fnPageSignUp } from '../src/lib/nodemod.js';
+import { sendLogin } from '../src/lib/data';
 import { pages } from '../src/lib/templates.js';
 
-// configurando firebase mock
-const firebasemock = firebase;
-const mockauth = new firebasemock.MockFirebase();
-const mockfirestore = new firebasemock.MockFirestore();
-mockfirestore.autoFlush();
-mockauth.autoFlush();
-
-global.firebase = firebasemock.MockFirebaseSdk(
-  // use null if your code does not use RTDB
-  () => null,
-  () => mockauth,
-  () => mockfirestore,
-);
-/* global.firebase = new MockFirebase();
-const btnMenuRegister = createBtnReg(); */
+global.firebase = firebases();
 
 describe('Pruebas de Red Social', () => {
   test('Verifica HTML en Home', () => {
@@ -53,20 +36,15 @@ describe('Pruebas de Red Social', () => {
     expect(objMain.innerHTML.replace(/(<.*?>)|\s+/g, (m, $1) => $1 ? $1 : ' ')).toBe(" <section> <div class=\"box_singup\"> <p class=\"text_register\">Datos de registro</p> <div class=\"linea\"> </div> <form id=\"login_form\" class=\"form\"> <input type=\"email\" id=\"login_email\" placeholder=\"Correo\" required=\"\"> <input type=\"password\" id=\"login_password\" placeholder=\"Contraseña\" required=\"\"> <div class=\"lineaform\"> </div> <p id=\"login_error\"></p> <button type=\"submit\" class=\"btnRegistrar\">Login</button> </form></div> </section> ");
   });
 
-  /* test('Precionar Boton de login en la pagina de login', () => {
-    let messageLogin;
-    document.body.innerHTML = objMain.outerHTML;
-    const objBotonLogin = document.getElementById('login_form');
-    objBotonLogin.addEventListener('submit', () => {
-    return messageLogin = fnLogin('sofiah@1234.com', '12345678').then(() => {});
+  test('deberia iniciar sesion correctamente', () => {
+    return sendLogin('ana01@outlook.com', '123456').then((message) => {
+      expect(message).toBe("Sofia");
     });
-    objBotonLogin.click();
-    expect(messageLogin).toBe("   ");
-  }); */
-  test('deberia iniciar sesion', async () => {
-    await fnLogin('sofiah@1234.com', '12345678')
-      .try((user) => {
-        expect(user.email).toBe('sofiah@1234.com');
-      });
+  });
+});
+
+test('No deberia iniciar sesion con credencial incorrecta', () => {
+  return sendLogin('ana02@outlook.com', '123456').then((message) => {
+    expect(message).toBe("no coicide correo y contraseña");
   });
 });

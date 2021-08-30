@@ -14,7 +14,7 @@ export function fnPagesLogin() {
 }
 
 export async function fnLogin(loginEmail, loginPassword) {
-  const message = await sendLogin(loginEmail, loginPassword);
+  await sendLogin(loginEmail, loginPassword);
   if (firebase.auth().currentUser) {
     window.history.pushState({}, '', pages.home2.path);
   } else {

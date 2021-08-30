@@ -18,6 +18,6 @@ const firebases = {
   },
 };
 
-export jest.fn(() => {
+export default jest.fn(() => {
   return firebases;
 });
