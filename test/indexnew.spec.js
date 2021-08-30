@@ -3,8 +3,8 @@
  */
 
 import firebases from './firebasenew-mock';
-import { objMain,fnPagesLogin, fnPageSignUp } from '../src/lib/nodemod.js';
-import { sendLogin } from '../src/lib/data';
+import { objMain,fnPagesLogin, fnPageSignUp, fnAuthGoogle } from '../src/lib/nodemod.js';
+import { sendLogin, sendLoginGoogle, fnLogOutFb } from '../src/lib/data';
 import { pages } from '../src/lib/templates.js';
 
 global.firebase = firebases();
@@ -41,25 +41,30 @@ describe('Pruebas de Red Social', () => {
       expect(message).toBe("Sofia");
     });
   });
+
+  test('No deberia iniciar sesion con credencial incorrecta', () => {
+    return sendLogin('ana02@outlook.com', '123456').then((message) => {
+      expect(message).toBe("no coicide correo y contraseña");
+    });
+  });
+
+  test('Beberia iniciar sesion con google', () => {
+    const provider = {};
+    return sendLoginGoogle(provider).then((message) => {
+      expect(message).toBe("Se realizo logeo con cuenta de google");
+    });
+  });
+
+  test('Cerrar Cesion', () => {
+    const provider = {};
+    return fnLogOutFb().then((message) => {
+      expect(message).toBe("deslogeo");
+    });
+  });
+
 });
 
-test('No deberia iniciar sesion con credencial incorrecta', () => {
-  return sendLogin('ana02@outlook.com', '123456').then((message) => {
-    expect(message).toBe("no coicide correo y contraseña");
-  });
-  test('Deberia mostrar error al iniciar sesion con credenciales invalidas', () => {
-    const email = 'sofia@error.com';
-    const password = '123456789';
-    const messageError = 'Credenciales invalidas';
-    const mockSignInWithEmailAndPassword = jest.fn();
-    mockSignInWithEmailAndPassword.mockResolvedValue(new Error(messageError));
-    const mockFirebaseAuth = {
-      signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
-    };
-    firebase.auth = () => mockFirebaseAuth;
-    sendLogin(email, password)
-      .catch((error) => {
-        expect(error).toBe('Credenciales invalidas');
-      });
-  });
-});
+
+
+
+

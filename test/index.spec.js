@@ -6,7 +6,7 @@ import MockFirebase from 'mock-cloud-firestore';
 import * as admin from "firebase-admin";
 // import { firebase } from './firebase-mock';
 import { createBtnReg } from '../src/lib/elementTest.js';
-import { sendLogin } from '../src/lib/data.js';
+import { sendLogin, sendLoginGoogle, fnLogOutFb } from '../src/lib/data.js';
 import {
   fnPageSignUp, objMain, fnPagesLogin, fnLogin,
 } from '../src/lib/nodemod';
@@ -55,13 +55,7 @@ describe('Pruebas de Red Social', () => {
     expect(objMain.innerHTML.replace(/(<.*?>)|\s+/g, (m, $1) => $1 ? $1 : ' ')).toBe(" <section> <div class=\"box_singup\"> <p class=\"text_register\">Datos de registro</p> <div class=\"linea\"> </div> <form id=\"login_form\" class=\"form\"> <input type=\"email\" id=\"login_email\" placeholder=\"Correo\" required=\"\"> <input type=\"password\" id=\"login_password\" placeholder=\"Contraseña\" required=\"\"> <div class=\"lineaform\"> </div> <p id=\"login_error\"></p> <button type=\"submit\" class=\"btnRegistrar\">Login</button> </form></div> </section> ");
   });
 
-  test('deberia iniciar sesion correctamente', () => {
-    return sendLogin('ana01@outlook.com', '123456').then((message) => {
-      expect(message).toBe("Sofia");
-    });
-    objBotonLogin.click();
-    expect(messageLogin).toBe("   ");
-  }); */
+
   test('deberia iniciar sesion', () => {
     const email = 'sofiah@1234.com';
     const password = '12345678';
@@ -78,6 +72,8 @@ describe('Pruebas de Red Social', () => {
         expect(user.email).toBe('sofiah@1234.com');
       });
   });
+
+
   test('Deberia mostrar error al iniciar sesion con credenciales invalidas', () => {
     const email = 'sofia@error.com';
     const password = '123456789';
@@ -93,4 +89,52 @@ describe('Pruebas de Red Social', () => {
         expect(error).toBe('Credenciales invalidas');
       });
   });
+
+  test('Deberia iniciar secion con Google', () => {
+    const mockSignInWithGoogle = jest.fn();
+    const result = "Se realizo logeo con cuenta de google"
+    mockSignInWithGoogle.mockResolvedValue(result);
+    const mockFirebaseAuth = {
+      signInWithPopup : mockSignInWithGoogle,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    const provider = {};
+    sendLoginGoogle(provider)
+      .then((result) => {
+        expect(result).toBe('Se realizo logeo con cuenta de google');
+      });
+  });
+
+  test('Deberia cerrar cesion', () => {
+    const mockLogOut = jest.fn();
+    let message = "ok";
+    mockLogOut.mockResolvedValue(message);
+    const mockFirebaseAuth = {
+      signOut : mockLogOut,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    fnLogOutFb()
+      .then((incomingmessage) => {
+        expect(incomingmessage).toBe('ok');
+      }).catch((err) =>{ 
+        console.log(err);
+
+      });
+
+  });
+
+  test('Deberia enviar error cerrer sesión', () => {
+    const message = 'error';
+    const mocksignOut = jest.fn();
+    mocksignOut.mockResolvedValue(new Error(message));
+    const mockFirebaseAuth = {
+      signOut: mocksignOut,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    fnLogOutFb()
+      .catch((error) => {
+        expect(message).toBe('error');
+      });
+  });
+
 });

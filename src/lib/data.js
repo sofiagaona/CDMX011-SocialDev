@@ -27,8 +27,8 @@ export function sendLogin(email, password) {
 
 export function fnLogOutFb() {
   return firebase.auth().signOut()
-    .then(() => { 'ok'; })
-    .catch((error) => { 'error'; });
+    .then((message) => { return message; })
+    .catch((error) => { return error; });
 }
 
 export function sendLoginGoogle(provider) {

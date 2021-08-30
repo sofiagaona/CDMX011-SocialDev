@@ -24,6 +24,7 @@ export async function fnLogin(loginEmail, loginPassword) {
 
 export async function fnAuthGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
+  console.log(provider);
   const message = await sendLoginGoogle(provider);
   try {
     window.history.pushState({}, '', pages.home2.path);

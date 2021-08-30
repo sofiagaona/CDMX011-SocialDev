@@ -1,5 +1,6 @@
 const firebases = {
   auth: () => {
+
     return {
       signInWithEmailAndPassword: (email, password) => {
         return new Promise((resolve, reject) => {
@@ -14,7 +15,32 @@ const firebases = {
           }
         });
       },
+      signInWithPopup: (provider) => {
+        return new Promise((resolve, reject) => {
+          if (provider) {
+            resolve("logeado con Google");
+          } else {
+            reject("Error en registro con Google");
+          }
+        });
+      },
+
+      GoogleAuthProvider: () => {
+        return new Promise((resolve) => {
+          
+        });
+      },
+
+      signOut: () => {
+        return new Promise((res) => {
+          res("deslogeo");
+        });
+      }
+      
     };
+
+    
+
   },
 };
 
