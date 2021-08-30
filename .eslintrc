@@ -37,6 +37,7 @@
     "no-undef":"warn",
     "object-curly-newline": 0,
     "prefer-promise-reject-errors": 0
+  
 
 
 

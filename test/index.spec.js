@@ -1,13 +1,32 @@
 /**
  * @jest-environment jsdom
  */
-
-import firebases from './firebasenew-mock';
-import { objMain,fnPagesLogin, fnPageSignUp } from '../src/lib/nodemod.js';
-import { sendLogin } from '../src/lib/data';
+import './globals/firebase.js';
+import MockFirebase from 'mock-cloud-firestore';
+import * as admin from "firebase-admin";
+// import { firebase } from './firebase-mock';
+import { createBtnReg } from '../src/lib/elementTest.js';
+import { sendLogin } from '../src/lib/data.js';
+import {
+  fnPageSignUp, objMain, fnPagesLogin, fnLogin,
+} from '../src/lib/nodemod';
 import { pages } from '../src/lib/templates.js';
 
-global.firebase = firebases();
+/* configurando firebase mock
+const firebasemock = firebase;
+const mockauth = new firebasemock.MockFirebase();
+const mockfirestore = new firebasemock.MockFirestore();
+mockfirestore.autoFlush();
+mockauth.autoFlush(); */
+
+/* global.firebase = firebasemock.MockFirebaseSdk(
+  // use null if your code does not use RTDB
+  () => null,
+  () => mockauth,
+  () => mockfirestore,
+); */
+/* global.firebase = new MockFirebase();
+const btnMenuRegister = createBtnReg(); */
 
 describe('Pruebas de Red Social', () => {
   test('Verifica HTML en Home', () => {
@@ -40,12 +59,24 @@ describe('Pruebas de Red Social', () => {
     return sendLogin('ana01@outlook.com', '123456').then((message) => {
       expect(message).toBe("Sofia");
     });
-  });
-});
-
-test('No deberia iniciar sesion con credencial incorrecta', () => {
-  return sendLogin('ana02@outlook.com', '123456').then((message) => {
-    expect(message).toBe("no coicide correo y contraseña");
+    objBotonLogin.click();
+    expect(messageLogin).toBe("   ");
+  }); */
+  test('deberia iniciar sesion', () => {
+    const email = 'sofiah@1234.com';
+    const password = '12345678';
+    const user = { email, uid: 'xxxxxxx' };
+    const mockSignInWithEmailAndPassword = jest.fn();
+    mockSignInWithEmailAndPassword.mockResolvedValue(user);
+    const mockFirebaseAuth = {
+      signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
+      currentUser: user,
+    };
+    firebase.auth = () => mockFirebaseAuth;
+    sendLogin(email, password)
+      .then((user) => {
+        expect(user.email).toBe('sofiah@1234.com');
+      });
   });
   test('Deberia mostrar error al iniciar sesion con credenciales invalidas', () => {
     const email = 'sofia@error.com';
