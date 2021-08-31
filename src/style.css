@@ -381,6 +381,22 @@ input:-webkit-autofill:active {
   color: rgba(255, 255, 255);
 }
 
+.btn_editprofile{
+  width: 330px;
+  height: 42px;
+  background: rgba(20, 33, 61, 0.7);
+  border-radius: 5px;
+  border-style: none;
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 2em;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255);
+}
+
 @media screen and (min-width : 450px) and (max-width : 639px){
 
     .home_box_img_stickers{  
