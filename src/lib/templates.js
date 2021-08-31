@@ -95,46 +95,46 @@ export const pages = {
   },
   profile: {
     path: '/profile',
-    template: `<section class="dateUserHome">
-    <h1 class="tittle_home2">Perfil</h1>
-    <p class="nameUser"></p>
-    <div><img class="profileimg" src=""></div>
-    <div><input class="btn_editprofile" type="button" value="Editar Perfil"></div>
-    <div><input class="btn_make_post" type="button" value="Publicar"></div>
-    <div class="box_post">
-    <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-    <div class="posted"><p>Esta es una Publicacion</p></div>
-    <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-    <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
-    </div>
-  </section>  
+    template: `
+    <section class="dateUserHome">
+      <h1 class="tittle_home2">Perfil</h1>
+      <p class="nameUser"></p>
+      <div><img class="profileimg" src=""></div>
+      <div><input class="btn_editprofile" type="button" value="Editar Perfil"></div>
+      <div><input class="btn_make_post" type="button" value="Publicar"></div>
+      <div class="box_post">
+        <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
+        <div class="posted"><p>Esta es una Publicacion</p></div>
+        <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
+        <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
+      </div>
+    </section>  
+
+    <section class="dateUserHome1">
+      <div class="ventana_modal_editar">
+
+        <h1 class="tittle_editprofile">Editar Perfil</h1>
+        <p class="nameUser"></p>
+
+        <div class="uploadpicture">
+          <div class="box_post_img"><img class="subprofileimg2"src=""></div>
+          <div class="form"><p>Cambiar Imagen</p></div>
+          <input type="file" id="idfile" class="load_file" value="Subir Foto">
+        </div> 
+
+        <div style="width: 100%">
+          <form id="form_user_date" class="form">
+            <input type="text" class="name_profile" placeholder="Nombre">
+            <input type="text" class="city_profile" placeholder="Ciudad">
+            <input type="text" class="work_profile" placeholder="Lugar de Trabajo">
+            <button type="submint" >Guardar</button>
+          </form>
+        </div>
+      </div>
+    </section> 
+
     `,
 
   },
-  editprofile: {
-    path: '/profile',
-    template: `<section class="dateUserHome">
-    <h1 class="tittle_home2">Editar Perfil</h1>
-    <p class="nameUser"></p>
-    <div class="uploadpicture">
-      <input type="file" id="idfile" value="Subir Foto">
-      <div><img class="profileimgmini" src=""></div>
-    <div>
-
-
-
-
-    <div><img class="profileimg" src=""></div>
-    <div><input class="btn_editprofile" type="button" value="Editar Perfil"></div>
-    <div><input class="btn_make_post" type="button" value="Publicar"></div>
-    <div class="box_post">
-    <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-    <div class="posted"><p>Esta es una Publicacion</p></div>
-    <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-    <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
-    </div>
-  </section>  
-    `,
-
-  },
+  
 };

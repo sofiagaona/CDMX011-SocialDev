@@ -32,7 +32,7 @@ async function fnSignUp(e) {
     const message = await sendSingUp(signUpEmail, signUpPassword1);
     if (firebase.auth().currentUser) {
       users = message;
-      writeFareBase(users.uid, 'name', singUpName);
+      writeFareBase(users.uid, 'namefirst', singUpName);
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -116,13 +116,42 @@ async function router() {
       break;
     case '/profile':
       if (userState) {
-        const info = await readfirebase(userState.uid, 'name');
-        const img = await readfirebase(userState.uid, 'img');
+        let name = await readfirebase(userState.uid, 'name');
+        let city = await readfirebase(userState.uid, 'city');
+        let work = await readfirebase(userState.uid, 'work');
+        let img = await readfirebase(userState.uid, 'img');
         objMain.innerHTML = pages.profile.template;
         document.querySelector('.profileimg').src = img;
         document.querySelector('.subprofileimg').src = img;
-        document.querySelector('.subnameuser').innerHTML = info;
-        document.querySelector('.nameUser').innerHTML = info;
+        document.querySelector('.subnameuser').innerHTML = name;
+        document.querySelector('.nameUser').innerHTML = name;
+
+        document.querySelector('.btn_editprofile').addEventListener('click', () =>{
+          document.querySelector('.dateUserHome1').style.display= "flex";
+          document.querySelector('.ventana_modal_editar').style.display= "flex";
+          document.querySelector('.subprofileimg2').src = img;
+          document.querySelector(".name_profile").value = name;
+          document.querySelector(".city_profile").value = city;
+          document.querySelector(".work_profile").value = work;
+
+          document.getElementById("idfile").addEventListener('change', () =>{
+            const file = document.getElementById("idfile").files[0];
+            firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file)
+            .then(() => {console.log("Se Subio");});
+          });
+          
+
+          document.getElementById("form_user_date").addEventListener('submit', (e) =>{ 
+            e.preventDefault();
+            name =document.querySelector(".name_profile").value;
+            city = document.querySelector(".city_profile").value;
+            work = document.querySelector(".work_profile").value;
+            writeFareBase(userState.uid, "name", name);
+            writeFareBase(userState.uid, "city", city);
+            writeFareBase(userState.uid, "work", work);
+            router();
+          })
+        });
         
       }
       else {
@@ -135,16 +164,6 @@ async function router() {
       router();
       break;
   }
-}
-
-var metadata = {
-  contentType: 'image/jpeg',
-};
-
-const file ={
-  name: "profileimg.jpg",
-  type: 'image/jpeg',
-  src: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
 }
 
 

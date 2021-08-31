@@ -40,15 +40,19 @@ export function sendLoginGoogle(provider) {
 export function writeFareBase(idUser, type, data) {
   let message;
   switch (type) {
-    case 'name': firebase.firestore().collection(idUser).doc('userInfo').set({
+    case 'namefirst': firebase.firestore().collection(idUser).doc('userInfo').set({
       name: data,
-    })
-      .then(() => {
-        message = 'Document successfully written!';
-      })
-      .catch((error) => {
-        const messageconcat = 'Error writing document: ' + error;
-        message = messageconcat;
+    });
+    case 'name': return firebase.firestore().collection(idUser).doc('userInfo').update({
+      name: data,
+    }).then(()=>{});
+      break;
+    case 'city': firebase.firestore().collection(idUser).doc('userInfo').update({
+      city: data,
+      });
+        break;
+    case 'work': firebase.firestore().collection(idUser).doc('userInfo').update({
+      work: data,
       });
       break;
     default: message = 'Función mal definida';
@@ -65,7 +69,18 @@ export function readfirebase(idUser, type) {
           console.log('Error getting document:', error.message);
         });
     case 'city':
-      break;
+      return firebase.firestore().collection(idUser).doc('userInfo').get()
+        .then((doc) => doc.data().city)
+        .catch((error) => {
+          console.log('Error getting document:', error.message);
+        });
+    case 'work':
+      return firebase.firestore().collection(idUser).doc('userInfo').get()
+        .then((doc) => doc.data().work)
+        .catch((error) => {
+          console.log('Error getting document:', error.message);
+        });
+      
     case 'img':
       return firebase.storage().ref(idUser + '/profileimg.jpg').getDownloadURL().then((url) => {
         console.log(url);
