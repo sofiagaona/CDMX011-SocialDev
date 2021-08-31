@@ -34,6 +34,19 @@ async function fnSignUp(e) {
       users = message;
       writeFareBase(users.uid, 'name', singUpName);
       window.history.pushState({}, '', pages.home2.path);
+
+      firebase.firestore().collection(firebase.auth().currentUser.uai).doc("userInfo").set({
+        name: singUpName,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+
+      databaseReference.child(firebase.auth().currentUser.uai + '/profileimg.jpg').set("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
+
       router();
     } else {
       signUpPasswordError.innerHTML = 'Usuario o contraseña no son validos';
@@ -58,6 +71,15 @@ export async function fnLogOut() {
   } catch (error) { console.log('ok'); }
 }
 
+function fnGoProfile(){
+  window.history.pushState({}, '', pages.profile.path);
+  router();
+}
+
+function back(){
+  window.history.go(-1);
+}
+
 async function router() {
   userState = firebase.auth().currentUser;
 
@@ -71,6 +93,7 @@ async function router() {
         document.querySelector('.subprofileimg').src = img;
         document.querySelector('.subnameuser').innerHTML = info;
         document.querySelector('.nameUser').innerHTML = info;
+        document.querySelector('.btn_profile').addEventListener('click',fnGoProfile);
       } else {
         objMain.innerHTML = pages.home.template;
         const objBotonSingup = document.getElementById('id_home_text_registro');
@@ -97,8 +120,21 @@ async function router() {
         }
       });
       break;
-    case '/perfil':
-      objMain.innerHTML = pages.perfil.template;
+    case '/profile':
+      if (userState) {
+        const info = await readfirebase(userState.uid, 'name');
+        const img = await readfirebase(userState.uid, 'img');
+        objMain.innerHTML = pages.profile.template;
+        document.querySelector('.profileimg').src = img;
+        document.querySelector('.subprofileimg').src = img;
+        document.querySelector('.subnameuser').innerHTML = info;
+        document.querySelector('.nameUser').innerHTML = info;
+        
+      }
+      else {
+        window.history.pushState({}, '', pages.home.path);
+        router();
+      }
       break;
     default:
       window.history.pushState({}, '', '/');
