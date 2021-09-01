@@ -33,6 +33,8 @@ async function fnSignUp(e) {
     if (firebase.auth().currentUser) {
       users = message;
       writeFareBase(users.uid, 'namefirst', singUpName);
+      writeFareBase(users.uid, 'city', "");
+      writeFareBase(users.uid, 'work', "");
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -119,7 +121,7 @@ async function router() {
         let name = await readfirebase(userState.uid, 'name');
         let city = await readfirebase(userState.uid, 'city');
         let work = await readfirebase(userState.uid, 'work');
-        const img = await readfirebase(userState.uid, 'img');
+        let img = await readfirebase(userState.uid, 'img');
         objMain.innerHTML = pages.profile.template;
         document.querySelector('.profileimg').src = img;
         document.querySelector('.subprofileimg').src = img;
@@ -137,10 +139,18 @@ async function router() {
           document.querySelector('.city_profile').value = city;
           document.querySelector('.work_profile').value = work;
 
-          document.getElementById('idfile').addEventListener('change', () => {
+          document.getElementById('idfile').addEventListener('change', async () => {
             const file = document.getElementById('idfile').files[0];
             firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file)
-              .then(() => { console.log('Se Subio'); });
+              .then(() => {
+                readfirebase(userState.uid, 'img')
+                .then((a) => {
+                  document.querySelector('.subprofileimg2').src = a;
+                });
+             });
+
+          
+
           });
           document.getElementById('form_user_date').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -153,6 +163,11 @@ async function router() {
             router();
           });
         });
+
+        document.querySelector(".btn_make_post").addEventListener('click' () => {
+          
+        });
+
       } else {
         window.history.pushState({}, '', pages.home.path);
         router();

@@ -107,13 +107,14 @@ export const pages = {
          <p class="titleData">Lugar de trabajo: <span class="workUser dataProfile"></span></p>
       </div>
       <div><input class="btn_make_post" type="button" value="Publicar"></div>
-      <div class="box_post">
-        <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-        <div class="posted"><p>Esta es una Publicacion</p></div>
-        <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-        <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
-      </div>
-    </section>  
+      
+    </section>
+    
+    <section class="all_profile_post">
+    </section>
+
+    <section class="make_post_on_profile">
+    </section>
 
     <section class="dateUserHome1">
       <div class="ventana_modal_editar">
@@ -137,6 +138,54 @@ export const pages = {
         </div>
       </div>
     </section> 
+
+    `,
+
+  },
+  makeapost: {
+    path: '/makespost',
+    template: `
+   
+    <section class="make_post">
+      <div class="ventana_modal_editar">
+
+        <h1 class="tittle_editprofile">Editar Perfil</h1>
+        <p class="nameUser"></p>
+
+        <div class="uploadpicture">
+          <div class="box_post_img"><img class="subprofileimg2"src=""></div>
+          <div class="form"><p>Cambiar Imagen</p></div>
+          <input type="file" id="idfile" class="load_file" value="Subir Foto">
+        </div> 
+
+        <div style="width: 100%">
+          <form id="form_user_date" class="form">
+            <input type="text" class="name_profile" placeholder="Nombre">
+            <input type="text" class="city_profile" placeholder="Ciudad">
+            <input type="text" class="work_profile" placeholder="Lugar de Trabajo">
+            <button type="submint" >Guardar</button>
+          </form>
+        </div>
+      </div>
+    </section> 
+
+    `,
+
+  },
+  post: {
+    path: '/post',
+    template: `
+   
+    <div class="box_post">
+      <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
+      <div class="posted"><p>Esta es una Publicacion</p></div>
+      <div class="box_post_btn">
+          <img class="menu_btn_text" src="./img/likeicon.png">
+          <img class="menu_btn_text" src="./img/shericon2.png">
+          <img class="menu_btn_text" src="./img/coment.png">
+      </div>
+    
+    </div>
 
     `,
 

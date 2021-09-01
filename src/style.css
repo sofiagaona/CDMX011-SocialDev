@@ -375,11 +375,16 @@ input:-webkit-autofill:active {
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:center;
   justify-content: space-between;
 }
 .logout{
   display:none;
+}
+
+.menu_btn_text{
+  margin: 0 .5em 0 .5em;
+  height: 25px;
 }
 
 .btn_profile{
