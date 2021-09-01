@@ -1,6 +1,5 @@
 const firebases = {
   auth: () => {
-
     return {
       signInWithEmailAndPassword: (email, password) => {
         return new Promise((resolve, reject) => {
@@ -26,24 +25,16 @@ const firebases = {
       },
 
       GoogleAuthProvider: () => {
-        return new Promise((resolve) => {
-          
-        });
+        return new Promise((resolve) => { });
       },
-
       signOut: () => {
         return new Promise((res) => {
           res("deslogeo");
         });
-      }
-      
+      },
     };
-
-    
-
   },
 };
-
 export default jest.fn(() => {
   return firebases;
 });

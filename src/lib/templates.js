@@ -101,6 +101,11 @@ export const pages = {
       <p class="nameUser"></p>
       <div><img class="profileimg" src=""></div>
       <div><input class="btn_editprofile" type="button" value="Editar Perfil"></div>
+      <div class="UserData">
+         <p class="titleData">Nombre: <span class="nameUserProfile dataProfile"></span></p>
+         <p class="titleData">Ciudad: <span class="cityUser dataProfile"></span></p>
+         <p class="titleData">Lugar de trabajo: <span class="workUser dataProfile"></span></p>
+      </div>
       <div><input class="btn_make_post" type="button" value="Publicar"></div>
       <div class="box_post">
         <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
@@ -136,5 +141,4 @@ export const pages = {
     `,
 
   },
-  
 };

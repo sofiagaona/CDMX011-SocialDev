@@ -36,10 +36,10 @@ async function fnSignUp(e) {
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
-          .then(res => res.blob()) // Gets the response and returns it as a blob
-          .then(blob => {
-            firebase.storage().ref(users.uid + '/profileimg.jpg').put(blob);
-          });
+        .then((res) => res.blob()) // Gets the response and returns it as a blob
+        .then((blob) => {
+          firebase.storage().ref(users.uid + '/profileimg.jpg').put(blob);
+        });
 
       router();
     } else {
@@ -65,12 +65,12 @@ export async function fnLogOut() {
   } catch (error) { console.log('ok'); }
 }
 
-function fnGoProfile(){
+function fnGoProfile() {
   window.history.pushState({}, '', pages.profile.path);
   router();
 }
 
-function back(){
+function back() {
   window.history.go(-1);
 }
 
@@ -87,7 +87,7 @@ async function router() {
         document.querySelector('.subprofileimg').src = img;
         document.querySelector('.subnameuser').innerHTML = info;
         document.querySelector('.nameUser').innerHTML = info;
-        document.querySelector('.btn_profile').addEventListener('click',fnGoProfile);
+        document.querySelector('.btn_profile').addEventListener('click', fnGoProfile);
       } else {
         objMain.innerHTML = pages.home.template;
         const objBotonSingup = document.getElementById('id_home_text_registro');
@@ -119,42 +119,41 @@ async function router() {
         let name = await readfirebase(userState.uid, 'name');
         let city = await readfirebase(userState.uid, 'city');
         let work = await readfirebase(userState.uid, 'work');
-        let img = await readfirebase(userState.uid, 'img');
+        const img = await readfirebase(userState.uid, 'img');
         objMain.innerHTML = pages.profile.template;
         document.querySelector('.profileimg').src = img;
         document.querySelector('.subprofileimg').src = img;
         document.querySelector('.subnameuser').innerHTML = name;
         document.querySelector('.nameUser').innerHTML = name;
+        document.querySelector('.nameUserProfile').innerHTML = name;
+        document.querySelector('.cityUser').innerHTML = city;
+        document.querySelector('.workUser').innerHTML = work;
 
-        document.querySelector('.btn_editprofile').addEventListener('click', () =>{
-          document.querySelector('.dateUserHome1').style.display= "flex";
-          document.querySelector('.ventana_modal_editar').style.display= "flex";
+        document.querySelector('.btn_editprofile').addEventListener('click', () => {
+          document.querySelector('.dateUserHome1').style.display = "flex";
+          document.querySelector('.ventana_modal_editar').style.display = "flex";
           document.querySelector('.subprofileimg2').src = img;
-          document.querySelector(".name_profile").value = name;
-          document.querySelector(".city_profile").value = city;
-          document.querySelector(".work_profile").value = work;
+          document.querySelector('.name_profile').value = name;
+          document.querySelector('.city_profile').value = city;
+          document.querySelector('.work_profile').value = work;
 
-          document.getElementById("idfile").addEventListener('change', () =>{
-            const file = document.getElementById("idfile").files[0];
+          document.getElementById('idfile').addEventListener('change', () => {
+            const file = document.getElementById('idfile').files[0];
             firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file)
-            .then(() => {console.log("Se Subio");});
+              .then(() => { console.log('Se Subio'); });
           });
-          
-
-          document.getElementById("form_user_date").addEventListener('submit', (e) =>{ 
+          document.getElementById('form_user_date').addEventListener('submit', (e) => {
             e.preventDefault();
-            name =document.querySelector(".name_profile").value;
-            city = document.querySelector(".city_profile").value;
-            work = document.querySelector(".work_profile").value;
-            writeFareBase(userState.uid, "name", name);
-            writeFareBase(userState.uid, "city", city);
-            writeFareBase(userState.uid, "work", work);
+            name = document.querySelector('.name_profile').value;
+            city = document.querySelector('.city_profile').value;
+            work = document.querySelector('.work_profile').value;
+            writeFareBase(userState.uid, 'name', name);
+            writeFareBase(userState.uid, 'city', city);
+            writeFareBase(userState.uid, 'work', work);
             router();
-          })
+          });
         });
-        
-      }
-      else {
+      } else {
         window.history.pushState({}, '', pages.home.path);
         router();
       }
@@ -165,6 +164,3 @@ async function router() {
       break;
   }
 }
-
-
-

@@ -134,7 +134,7 @@ input:-webkit-autofill:active {
   .form button{
     position: relative;
     width: 90%;
-    height: 48px;
+    height: 43px;
     background: rgba(20, 33, 61, 0.7);
     border-radius: 5px;
     border-style: none;
@@ -321,12 +321,12 @@ input:-webkit-autofill:active {
   font-family: 'Work Sans', sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 2em;
+  font-size: 1.2em;
   line-height: 28px;
   text-align: center;
   letter-spacing: -0.02em;
   color: rgba(20, 33, 61, 0.9);
-  margin-top: .7em;
+  margin-top: 1.5em;
 }
 
 .box_post{
@@ -406,13 +406,11 @@ input:-webkit-autofill:active {
   font-family: 'Work Sans', sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 2em;
+  font-size: 1.2em;
   text-align: center;
   letter-spacing: -0.02em;
   color: rgba(255, 255, 255);
 }
-
-
 .dateUserHome1 {
   display:none;
   justify-content: center;
@@ -429,10 +427,10 @@ input:-webkit-autofill:active {
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-color: gray;
+  background-color: rgb(168, 168, 170);
   border-radius: 5px;
-  width: 80%;
-  height: 70%;
+  width: 85%;
+  height: 75%;
 }
 
 #form_user_date{
@@ -457,7 +455,32 @@ input:-webkit-autofill:active {
   color: rgba(20, 33, 61, 0.9);
 }
 
+.UserData{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
 
+.titleData{
+  font-family: 'Work Sans', sans-serif;
+  font-style:normal;
+  font-weight:bolder;
+  font-size: 1em;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #14213D;
+  margin-top: 1em;
+}
+.dataProfile{
+font-family: 'Work Sans', sans-serif;
+font-style: normal;
+font-weight: normal;
+text-align: center;
+letter-spacing: -0.02em;
+color: rgba(20, 33, 61, 0.7);
+}
 
 
 @media screen and (min-width : 450px) and (max-width : 639px){

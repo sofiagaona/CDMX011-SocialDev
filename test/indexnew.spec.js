@@ -3,7 +3,7 @@
  */
 
 import firebases from './firebasenew-mock';
-import { objMain,fnPagesLogin, fnPageSignUp, fnAuthGoogle } from '../src/lib/nodemod.js';
+import { objMain, fnPagesLogin, fnPageSignUp, fnAuthGoogle } from '../src/lib/nodemod.js';
 import { sendLogin, sendLoginGoogle, fnLogOutFb } from '../src/lib/data';
 import { pages } from '../src/lib/templates.js';
 
@@ -61,10 +61,4 @@ describe('Pruebas de Red Social', () => {
       expect(message).toBe("deslogeo");
     });
   });
-
 });
-
-
-
-
-

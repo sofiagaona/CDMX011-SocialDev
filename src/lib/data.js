@@ -43,17 +43,18 @@ export function writeFareBase(idUser, type, data) {
     case 'namefirst': firebase.firestore().collection(idUser).doc('userInfo').set({
       name: data,
     });
+      break;
     case 'name': return firebase.firestore().collection(idUser).doc('userInfo').update({
       name: data,
-    }).then(()=>{});
-      break;
+    })
+      .then(() => {});
     case 'city': firebase.firestore().collection(idUser).doc('userInfo').update({
       city: data,
-      });
-        break;
+    });
+      break;
     case 'work': firebase.firestore().collection(idUser).doc('userInfo').update({
       work: data,
-      });
+    });
       break;
     default: message = 'Función mal definida';
   }
@@ -80,7 +81,6 @@ export function readfirebase(idUser, type) {
         .catch((error) => {
           console.log('Error getting document:', error.message);
         });
-      
     case 'img':
       return firebase.storage().ref(idUser + '/profileimg.jpg').getDownloadURL().then((url) => {
         console.log(url);
