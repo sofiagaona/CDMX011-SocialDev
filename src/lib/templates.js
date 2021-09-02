@@ -146,28 +146,32 @@ export const pages = {
     path: '/makespost',
     template: `
    
-    <section class="make_post">
-      <div class="ventana_modal_editar">
+    
 
-        <h1 class="tittle_editprofile">Editar Perfil</h1>
-        <p class="nameUser"></p>
 
-        <div class="uploadpicture">
-          <div class="box_post_img"><img class="subprofileimg2"src=""></div>
-          <div class="form"><p>Cambiar Imagen</p></div>
-          <input type="file" id="idfile" class="load_file" value="Subir Foto">
-        </div> 
+      <div class="box_make_post">
+          <div class="box_post_img"><img class="subprofileimg3"src=""><p class="subnameuser"></p></div>
+          <div class="post_publish"><textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text'></textarea>
+          <div class="box_post_btn_publish">
+            <div class="btn_post_publisher"> 
+              <img class="menu_btn_publish" src="./img/likeicon.png">
+              <img class="menu_btn_publish" src="./img/shericon2.png">
+              <img class="menu_btn_publish" src="./img/coment.png">
+            </div>  
+          <div>
+            <p id="publish_post_profile">Publicar</p>
+          </div>
+        </div>  
+     </div>
+    
+  
+       
 
-        <div style="width: 100%">
-          <form id="form_user_date" class="form">
-            <input type="text" class="name_profile" placeholder="Nombre">
-            <input type="text" class="city_profile" placeholder="Ciudad">
-            <input type="text" class="work_profile" placeholder="Lugar de Trabajo">
-            <button type="submint" >Guardar</button>
-          </form>
-        </div>
+  
+
+        
       </div>
-    </section> 
+   
 
     `,
 

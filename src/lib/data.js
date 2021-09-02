@@ -56,20 +56,21 @@ export function writeFareBase(idUser, type, data) {
       work: data,
     });
       break;
-    case 'post': 
+    case 'post':
       const date = new Date();
       const datePost = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-      console.log(datePost);
+      const post = {
+        post: data,
+        like: 0,
+        date: datePost,
+      };
+
       firebase.firestore().collection(idUser).doc('userPost').set({
-        datePost: {
-          post: data,
-          like: 0,
-        },
-       });
+        post,
+      });
       break;
     default: message = 'Función mal definida';
-    
-  }
+}
   return message;
 }
 

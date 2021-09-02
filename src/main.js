@@ -124,6 +124,7 @@ async function router() {
         let img = await readfirebase(userState.uid, 'img');
         objMain.innerHTML = pages.profile.template;
         document.querySelector('.profileimg').src = img;
+        document.querySelector('.all_profile_post').innerHTML = pages.post.template;
         document.querySelector('.subprofileimg').src = img;
         document.querySelector('.subnameuser').innerHTML = name;
         document.querySelector('.nameUser').innerHTML = name;
@@ -164,10 +165,16 @@ async function router() {
           });
         });
 
-        document.querySelector(".btn_make_post").addEventListener('click' () => {
-          
-        });
-
+        document.querySelector(".btn_make_post").addEventListener('click', () => {
+          document.querySelector('.make_post_on_profile').innerHTML = pages.makeapost.template;
+          document.querySelector('.make_post_on_profile').style.display = "flex";
+          document.querySelector('.box_make_post').style.display = "flex";
+          document.querySelector('.subprofileimg3').src = img;
+          document.getElementById('publish_post_profile').addEventListener('click', () => {
+            const post = document.querySelector('.text_post').value;
+            writeFareBase(userState.uid, 'post', post);
+          });
+        }); 
       } else {
         window.history.pushState({}, '', pages.home.path);
         router();
