@@ -3,7 +3,7 @@ import {
   objMain, fnPageSignUp, fnPagesLogin, fnLogin, fnAuthGoogle,
 } from './lib/nodemod.js';
 import {
-  sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase,
+  sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted,
 } from './lib/data.js';
 
 let users = [];
@@ -35,6 +35,7 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'namefirst', singUpName);
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
+      firebase.firestore().collection(users.uid).doc('userPost').set({});
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -123,8 +124,8 @@ async function router() {
         let work = await readfirebase(userState.uid, 'work');
         let img = await readfirebase(userState.uid, 'img');
         objMain.innerHTML = pages.profile.template;
+        await fnPrintPosted();
         document.querySelector('.profileimg').src = img;
-        document.querySelector('.all_profile_post').innerHTML = pages.post.template;
         document.querySelector('.subprofileimg').src = img;
         document.querySelector('.subnameuser').innerHTML = name;
         document.querySelector('.nameUser').innerHTML = name;
@@ -140,19 +141,28 @@ async function router() {
           document.querySelector('.city_profile').value = city;
           document.querySelector('.work_profile').value = work;
 
-          document.getElementById('idfile').addEventListener('change', async () => {
-            const file = document.getElementById('idfile').files[0];
-            firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file)
-              .then(() => {
+          document.getElementById('idfile').addEventListener('input', async () => {
+            const file = document.getElementById('idfile');
+
+            var stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
+              stateOfLoad.then(() => {
                 readfirebase(userState.uid, 'img')
                 .then((a) => {
                   document.querySelector('.subprofileimg2').src = a;
+                  document.getElementById("porcent_carga").innerHTML = "Imagen Actualizada."
                 });
-             });
+             })
+             
+             stateOfLoad.on('state_changed', taskSnapshot => {
+              
+              document.getElementById("porcent_carga").innerHTML = Math.trunc((taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100) + " %";
+              });
 
           
 
           });
+
+
           document.getElementById('form_user_date').addEventListener('submit', (e) => {
             e.preventDefault();
             name = document.querySelector('.name_profile').value;
@@ -170,9 +180,13 @@ async function router() {
           document.querySelector('.make_post_on_profile').style.display = "flex";
           document.querySelector('.box_make_post').style.display = "flex";
           document.querySelector('.subprofileimg3').src = img;
-          document.getElementById('publish_post_profile').addEventListener('click', () => {
+          document.querySelector('.box_make_post').addEventListener('submit', (e) => {
+            e.preventDefault();
             const post = document.querySelector('.text_post').value;
+            console.log("entro");
+            console.log(post);
             writeFareBase(userState.uid, 'post', post);
+            router();
           });
         }); 
       } else {
@@ -185,4 +199,21 @@ async function router() {
       router();
       break;
   }
+}
+
+async function fnPrintPosted(){
+  let  insert = document.querySelector('.all_profile_post');
+  
+  
+  const posted = await fillposted(userState.uid);
+  const numpost = Object.keys(posted);
+  
+
+  numpost.map(function (x) {
+    insert.innerHTML = insert.innerHTML + pages.post.template; 
+    console.log(posted[x].post);
+    console.log(posted[x].likes);
+    console.log(posted[x].comments);
+  } );
+
 }

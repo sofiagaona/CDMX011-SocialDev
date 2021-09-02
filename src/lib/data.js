@@ -58,15 +58,15 @@ export function writeFareBase(idUser, type, data) {
       break;
     case 'post':
       const date = new Date();
-      const datePost = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-      const post = {
-        post: data,
-        like: 0,
-        date: datePost,
-      };
+      const datePost = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
 
-      firebase.firestore().collection(idUser).doc('userPost').set({
-        post,
+       
+      firebase.firestore().collection(idUser).doc('userPost').update({
+        [datePost]: {
+          post: data,
+          comments: "",
+          likes: 0,
+        }
       });
       break;
     default: message = 'Función mal definida';
@@ -105,4 +105,15 @@ export function readfirebase(idUser, type) {
 
     default:
   }
+}
+
+export function fillposted(user){
+
+  let posted = firebase.firestore().collection(user).doc('userPost').get()
+  .then((doc) => {
+    return doc.data();
+  });
+
+  return posted
+
 }

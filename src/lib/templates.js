@@ -123,9 +123,9 @@ export const pages = {
         <p class="nameUser"></p>
 
         <div class="uploadpicture">
-          <div class="box_post_img"><img class="subprofileimg2"src=""></div>
+          <div class="box_post_img"><img class="subprofileimg2"src=""><p id="porcent_carga"></p></div>
           <div class="form"><p>Cambiar Imagen</p></div>
-          <input type="file" id="idfile" class="load_file" value="Subir Foto">
+          <input type="file" id="idfile" class="load_file">
         </div> 
 
         <div style="width: 100%">
@@ -145,34 +145,27 @@ export const pages = {
   makeapost: {
     path: '/makespost',
     template: `
-   
-    
-
-
-      <div class="box_make_post">
-          <div class="box_post_img"><img class="subprofileimg3"src=""><p class="subnameuser"></p></div>
-          <div class="post_publish"><textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text'></textarea>
-          <div class="box_post_btn_publish">
-            <div class="btn_post_publisher"> 
-              <img class="menu_btn_publish" src="./img/likeicon.png">
-              <img class="menu_btn_publish" src="./img/shericon2.png">
-              <img class="menu_btn_publish" src="./img/coment.png">
-            </div>  
+  
+    <form class="box_make_post">
+      <div class="box_post_img">
+        <img class="subprofileimg3"src="">
+        <p class="subnameuser"></p>
+      </div>
+      <div class="post_publish">
+        <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text'></textarea>
+        <div class="box_post_btn_publish">
+          <div class="btn_post_publisher"> 
+            <img class="menu_btn_publish" src="./img/likeicon.png">
+            <img class="menu_btn_publish" src="./img/shericon2.png">
+            <img class="menu_btn_publish" src="./img/coment.png">
+          </div>  
           <div>
-            <p id="publish_post_profile">Publicar</p>
+            <button type="submit" id="publish_post_profile">Publicar</button>
           </div>
         </div>  
-     </div>
-    
-  
-       
-
-  
-
-        
-      </div>
+      </div> 
+    </form>
    
-
     `,
 
   },
@@ -181,7 +174,7 @@ export const pages = {
     template: `
    
     <div class="box_post">
-      <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
+      <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p><p class="date_posted"></p></div>
       <div class="posted"><p>Esta es una Publicacion</p></div>
       <div class="box_post_btn">
           <img class="menu_btn_text" src="./img/likeicon.png">
