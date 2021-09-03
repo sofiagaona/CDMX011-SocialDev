@@ -209,11 +209,11 @@ async function fnPrintPosted(){
   const numpost = Object.keys(posted);
   
 
-  numpost.map(function (x) {
+ /* numpost.map(function (x) {
     insert.innerHTML = insert.innerHTML + pages.post.template; 
     console.log(posted[x].post);
     console.log(posted[x].likes);
     console.log(posted[x].comments);
-  } );
+  } ); */
 
 }
