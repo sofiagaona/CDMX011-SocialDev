@@ -144,7 +144,7 @@ async function router() {
           document.getElementById('idfile').addEventListener('input', async () => {
             const file = document.getElementById('idfile');
 
-            var stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
+            /* var stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
               stateOfLoad.then(() => {
                 readfirebase(userState.uid, 'img')
                 .then((a) => {
@@ -160,7 +160,7 @@ async function router() {
 
           
 
-          });
+          });*/
 
 
           document.getElementById('form_user_date').addEventListener('submit', (e) => {
