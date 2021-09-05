@@ -59,9 +59,9 @@ export function writeFareBase(idUser, type, data) {
     case 'post':
       const date = new Date();
       const datePost = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-
       firebase.firestore().collection(idUser).doc('userPost').update({
         [datePost]: {
+
           post: data,
           comments: "",
           likes: 0,
@@ -100,12 +100,6 @@ export function readfirebase(idUser, type) {
       })
         .catch((error) => {
         // Handle any errors
-        });
-    case 'post':
-      return firebase.firestore().collection(idUser).doc('userPost').get()
-        .then((doc) => doc.data().post)
-        .catch((error) => {
-          console.log('Error getting document:', error.message);
         });
 
     default:

@@ -35,7 +35,14 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'namefirst', singUpName);
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
-      firebase.firestore().collection(users.uid).doc('userPost').set({});
+      firebase.firestore().collection(users.uid).doc('userPost').set({
+        [new Date]: {
+
+          post: " ",
+          comments: "",
+          likes: 0,
+        },
+      });
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -212,14 +219,12 @@ async function router() {
 
 } */
 
-async function fnPrintPosted() {
+ async function fnPrintPosted() {
   let img = await readfirebase(userState.uid, 'img');
   let name = await readfirebase(userState.uid, 'name');
   let insert = document.querySelector('.all_profile_post');
-  const posted = await fillposted(userState.uid);
-  const numpost = Object.keys(posted).sort(function (a, b) {
-    return new Date(b.date) - new Date(a.date);
-  });
+  let posted = await fillposted(userState.uid);
+  const numpost = Object.keys(posted);
   console.log(numpost);
   const listPost = numpost.map(function (x) {
     return posted[x].post;
@@ -227,4 +232,5 @@ async function fnPrintPosted() {
    const printPost = pages.post.template(listPost, img, name);
    
    insert.innerHTML = printPost;
-}
+
+} 

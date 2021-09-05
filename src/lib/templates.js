@@ -172,7 +172,7 @@ export const pages = {
   post: {
     path: '/post',
     template: (posts, imgP, name) => {
-     
+
       let result = ``;
      
      posts.forEach(element => {
@@ -192,6 +192,7 @@ export const pages = {
 
     `
   });
+  console.log(result);
   return result;
     },
   },
