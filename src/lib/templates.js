@@ -171,11 +171,17 @@ export const pages = {
   },
   post: {
     path: '/post',
-    template: `
-   
-    <div class="box_post">
-      <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p><p class="date_posted"></p></div>
-      <div class="posted"><p>Esta es una Publicacion</p></div>
+    template: (posts, imgP, name) => {
+     
+      let result = ``;
+     
+     posts.forEach(element => {
+      result += 
+    
+     `
+      <div class="box_post">
+      <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
+      <div class="posted"><p id="publicacion">${element}</p></div>
       <div class="box_post_btn">
           <img class="menu_btn_text" src="./img/likeicon.png">
           <img class="menu_btn_text" src="./img/shericon2.png">
@@ -184,7 +190,9 @@ export const pages = {
     
     </div>
 
-    `,
-
+    `
+  });
+  return result;
+    },
   },
 };

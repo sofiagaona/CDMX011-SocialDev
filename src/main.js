@@ -144,7 +144,7 @@ async function router() {
           document.getElementById('idfile').addEventListener('input', async () => {
             const file = document.getElementById('idfile');
 
-            /* var stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
+            var stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
               stateOfLoad.then(() => {
                 readfirebase(userState.uid, 'img')
                 .then((a) => {
@@ -160,7 +160,7 @@ async function router() {
 
           
 
-          });*/
+          });
 
 
           document.getElementById('form_user_date').addEventListener('submit', (e) => {
@@ -183,8 +183,6 @@ async function router() {
           document.querySelector('.box_make_post').addEventListener('submit', (e) => {
             e.preventDefault();
             const post = document.querySelector('.text_post').value;
-            console.log("entro");
-            console.log(post);
             writeFareBase(userState.uid, 'post', post);
             router();
           });
@@ -201,19 +199,32 @@ async function router() {
   }
 }
 
-async function fnPrintPosted(){
+/* async function fnPrintPosted1() {
   let  insert = document.querySelector('.all_profile_post');
-  
-  
   const posted = await fillposted(userState.uid);
   const numpost = Object.keys(posted);
-  
-
- /* numpost.map(function (x) {
-    insert.innerHTML = insert.innerHTML + pages.post.template; 
+  numpost.map(function (x) {
+  insert.innerHTML = insert.innerHTML + pages.post.template; 
     console.log(posted[x].post);
     console.log(posted[x].likes);
     console.log(posted[x].comments);
-  } ); */
+  } );
 
+} */
+
+async function fnPrintPosted() {
+  let img = await readfirebase(userState.uid, 'img');
+  let name = await readfirebase(userState.uid, 'name');
+  let insert = document.querySelector('.all_profile_post');
+  const posted = await fillposted(userState.uid);
+  const numpost = Object.keys(posted).sort(function (a, b) {
+    return new Date(b.date) - new Date(a.date);
+  });
+  console.log(numpost);
+  const listPost = numpost.map(function (x) {
+    return posted[x].post;
+   });
+   const printPost = pages.post.template(listPost, img, name);
+   
+   insert.innerHTML = printPost;
 }
