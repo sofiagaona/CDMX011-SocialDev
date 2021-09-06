@@ -244,14 +244,11 @@ async function router() {
  
   const numpost = Object.keys(posted);
   const listPost = numpost.map(function (x) {
-    const idPost = x;
+       const idPost = x;
     return [posted[x].post, idPost]
    });
-   console.log(listPost);
    const printPost = pages.post.template(listPost, img, name);
-   
    insert.innerHTML = printPost;
-
 }; 
 
 async function fnWriteComment(listelement) {

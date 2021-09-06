@@ -173,13 +173,12 @@ export const pages = {
     path: '/post',
     template: (posts, imgP, name) => {
       let result = ``;
-      if(posts.length === 1){
+      if (posts.length === 1) {
         return " ";
       }
-     else{
-     posts.forEach(element => {
-      
-      if ((element[0] === ' ') || (element[0] === '')){
+      else {
+        posts.forEach(element => {
+       if ((element[0] === ' ') || (element[0] === '')){
       
       }
       else{

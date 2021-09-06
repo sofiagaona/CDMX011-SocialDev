@@ -119,12 +119,12 @@ export function fillposted(user){
 }
 
 export async function fnWriteCommentFb(idUser, idPost, comment){
-  console.log(idUser);
-  console.log(idPost);
-  console.log(comment);
-  const datePost = idPost;
+  let idComment = uuid.v1();
+  console.log(idComment);
+  
   firebase.firestore().collection(idUser).doc('userPost').update({
-    [`${idPost}.comments`]:comment
+    [`${idPost}.${idComment}.comment`]:comment,
+    [`${idPost}.${idComment}.userId`]:idUser
   });
 
 }
