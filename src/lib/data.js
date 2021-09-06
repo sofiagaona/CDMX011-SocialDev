@@ -116,3 +116,30 @@ export function fillposted(user){
   return posted
 
 }
+
+export async function fnWriteCommentFb(idUser, idPost, comment){
+  console.log(idUser);
+  console.log(idPost);
+  console.log(comment);
+  firebase.firestore().collection(idUser).doc('userPost').update({
+    '[idPost].comments': comment
+    
+  }).then(function() {
+    console.log("comments updated");
+  });
+  
+
+}
+
+/* export async function daletePost(posts){
+  // Obtener el objeto `FieldValue` 
+const FieldValue = admin.firestore.FieldValue;
+
+// Create a document reference
+const postRef = db.collection(user).doc('userPost');
+
+// Remove the 'capital' field from the document
+const res = await postRef.update({
+  posts: FieldValue.delete()
+});
+} */

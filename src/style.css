@@ -457,6 +457,27 @@ input:-webkit-autofill:active {
   width: 85%;
   height: 75%;
 }
+.dateUserHome2 {
+  display:none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(242, 242, 242, 0.357);
+}
+.ventana_modal_comment {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(168, 168, 170);
+  border-radius: 5px;
+  width: 85%;
+  height: 75%;
+}
 
 #form_user_date{
   display: flex;

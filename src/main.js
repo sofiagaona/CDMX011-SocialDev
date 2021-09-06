@@ -3,7 +3,7 @@ import {
   objMain, fnPageSignUp, fnPagesLogin, fnLogin, fnAuthGoogle,
 } from './lib/nodemod.js';
 import {
-  sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted,
+  sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted, fnWriteCommentFb,
 } from './lib/data.js';
 
 let users = [];
@@ -193,7 +193,24 @@ async function router() {
             writeFareBase(userState.uid, 'post', post);
             router();
           });
-        }); 
+        });
+        const listelement = document.querySelectorAll('input.comment');
+        console.log(listelement);
+        listelement.forEach(function(item) {
+          item.addEventListener('click', () => {
+            const idPost = item.id;
+          objMain.innerHTML = pages.makeacomment.template;
+          document.querySelector('.dateUserHome2').style.display = "flex";
+          document.querySelector('.ventana_modal_comment').style.display = "flex";
+          document.querySelector('.comment');
+          document.getElementById('form_make_comment').addEventListener('submit',(e) => {
+            e.preventDefault();
+            const comment = document.querySelector('.make_comment').value;
+            fnWriteCommentFb(userState.uid, idPost, comment);
+           });
+        });
+
+        });
       } else {
         window.history.pushState({}, '', pages.home.path);
         router();
@@ -224,13 +241,20 @@ async function router() {
   let name = await readfirebase(userState.uid, 'name');
   let insert = document.querySelector('.all_profile_post');
   let posted = await fillposted(userState.uid);
+ 
   const numpost = Object.keys(posted);
-  console.log(numpost);
   const listPost = numpost.map(function (x) {
-    return posted[x].post;
+    const idPost = x;
+    return [posted[x].post, idPost]
    });
+   console.log(listPost);
    const printPost = pages.post.template(listPost, img, name);
    
    insert.innerHTML = printPost;
 
-} 
+}; 
+
+async function fnWriteComment(listelement) {
+  console.log(listelement[0]);
+   
+}

@@ -172,28 +172,56 @@ export const pages = {
   post: {
     path: '/post',
     template: (posts, imgP, name) => {
-
       let result = ``;
-     
+      if(posts.length === 1){
+        return " ";
+      }
+     else{
      posts.forEach(element => {
+      
+      if ((element[0] === ' ') || (element[0] === '')){
+      
+      }
+      else{
       result += 
     
      `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
-      <div class="posted"><p id="publicacion">${element}</p></div>
+      <div class="posted"><p id="publicacion">${element[0]}</p></div>
       <div class="box_post_btn">
           <img class="menu_btn_text" src="./img/likeicon.png">
           <img class="menu_btn_text" src="./img/shericon2.png">
-          <img class="menu_btn_text" src="./img/coment.png">
+          <input type="image" id="${element[1]}" class="comment menu_btn_text" src="./img/coment.png">
       </div>
     
     </div>
 
     `
+       }
   });
-  console.log(result);
+   
   return result;
+     }
     },
+  },
+  makeacomment: {
+    path: '/comment',
+    template: `
+  
+  <section class="dateUserHome2">
+    <div class="ventana_modal_comment">
+      <div class="box_comments">
+        <p class="comment">Aqui se mostraran los comentarios<p>
+      </div> 
+      <form id="form_make_comment" class="form">
+        <input type="text" class="make_comment" placeholder="Hacer comentario">
+        <button type="submint" class="send_comment">Enviar</button>
+      </form>
+    </div>
+  </section> 
+   
+    `,
+
   },
 };
