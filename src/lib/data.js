@@ -67,6 +67,7 @@ export function writeFareBase(idUser, type, data) {
           likes: 0,
         },
       });
+
       break;
     default: message = 'Función mal definida';
 }
@@ -121,13 +122,10 @@ export async function fnWriteCommentFb(idUser, idPost, comment){
   console.log(idUser);
   console.log(idPost);
   console.log(comment);
+  const datePost = idPost;
   firebase.firestore().collection(idUser).doc('userPost').update({
-    '[idPost].comments': comment
-    
-  }).then(function() {
-    console.log("comments updated");
+    [`${idPost}.comments`]:comment
   });
-  
 
 }
 
