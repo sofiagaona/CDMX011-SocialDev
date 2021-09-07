@@ -210,9 +210,7 @@ export const pages = {
   
   <section class="dateUserHome2">
     <div class="ventana_modal_comment">
-      <div class="box_comments">
-        <p class="comment">Aqui se mostraran los comentarios<p>
-      </div> 
+      
       <form id="form_make_comment" class="form">
         <input type="text" class="make_comment" placeholder="Hacer comentario">
         <button type="submint" class="send_comment">Enviar</button>

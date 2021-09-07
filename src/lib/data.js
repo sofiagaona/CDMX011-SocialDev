@@ -123,8 +123,8 @@ export async function fnWriteCommentFb(idUser, idPost, comment){
   console.log(idComment);
   
   firebase.firestore().collection(idUser).doc('userPost').update({
-    [`${idPost}.${idComment}.comment`]:comment,
-    [`${idPost}.${idComment}.userId`]:idUser
+    [`${idPost}.comments.${idComment}.comment`]:comment,
+    [`${idPost}.comments.${idComment}.userId`]:idUser
   });
 
 }

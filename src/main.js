@@ -6,6 +6,7 @@ import {
   sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted, fnWriteCommentFb,
 } from './lib/data.js';
 
+
 let users = [];
 
 let userState = firebase.auth().currentUser;
@@ -241,17 +242,25 @@ async function router() {
   let name = await readfirebase(userState.uid, 'name');
   let insert = document.querySelector('.all_profile_post');
   let posted = await fillposted(userState.uid);
- 
   const numpost = Object.keys(posted);
   const listPost = numpost.map(function (x) {
        const idPost = x;
+       console.log(posted[x].post.comments);
     return [posted[x].post, idPost]
    });
    const printPost = pages.post.template(listPost, img, name);
    insert.innerHTML = printPost;
 }; 
 
-async function fnWriteComment(listelement) {
-  console.log(listelement[0]);
-   
+
+async function fnPrintComments(idPost){
+  console.log(idPost);
+  const boxComment = document.createElement('div');
+  const txtNameUser = document.createElement('p').classList.add('text-name-comment');
+  const txtComments = document.createElement('p').classList.add('text-comment');
+ 
+  
+  
+
+
 }
