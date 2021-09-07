@@ -210,7 +210,8 @@ export const pages = {
   
   <section class="dateUserHome2">
     <div class="ventana_modal_comment">
-      
+    <section class="all_post_comment">
+    </section>
       <form id="form_make_comment" class="form">
         <input type="text" class="make_comment" placeholder="Hacer comentario">
         <button type="submint" class="send_comment">Enviar</button>
@@ -220,5 +221,28 @@ export const pages = {
    
     `,
 
+  },
+  comment: {
+    path: '/comment',
+    template: (name, comment)=>{
+      console.log(comment);
+      let results = ``;
+      comment.forEach(element => {
+        if ((element === ' ') || (element === '')){
+       
+       }
+       else{
+     results+= `
+     
+        <div id="box_comments">
+          <p id="textName">${name}</p>
+          <p id="textComment>${element}</p>
+        </div>
+   
+  `
+    }
+  });
+    return results
+  },
   },
 };

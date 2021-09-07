@@ -129,6 +129,15 @@ export async function fnWriteCommentFb(idUser, idPost, comment){
 
 }
 
+export async function fnFillComent(user,idPost){
+  let comment = firebase.firestore().collection(user).doc('userPost').get()
+  .then((doc) => {
+    return doc.data();
+  });
+
+  return posted
+}
+
 /* export async function daletePost(posts){
   // Obtener el objeto `FieldValue` 
 const FieldValue = admin.firestore.FieldValue;

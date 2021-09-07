@@ -201,6 +201,7 @@ async function router() {
           item.addEventListener('click', () => {
             const idPost = item.id;
           objMain.innerHTML = pages.makeacomment.template;
+          fnPrintComments(idPost);
           document.querySelector('.dateUserHome2').style.display = "flex";
           document.querySelector('.ventana_modal_comment').style.display = "flex";
           document.querySelector('.comment');
@@ -208,6 +209,7 @@ async function router() {
             e.preventDefault();
             const comment = document.querySelector('.make_comment').value;
             fnWriteCommentFb(userState.uid, idPost, comment);
+           
            });
         });
 
@@ -245,7 +247,6 @@ async function router() {
   const numpost = Object.keys(posted);
   const listPost = numpost.map(function (x) {
        const idPost = x;
-       console.log(posted[x].post.comments);
     return [posted[x].post, idPost]
    });
    const printPost = pages.post.template(listPost, img, name);
@@ -255,12 +256,29 @@ async function router() {
 
 async function fnPrintComments(idPost){
   console.log(idPost);
-  const boxComment = document.createElement('div');
-  const txtNameUser = document.createElement('p').classList.add('text-name-comment');
-  const txtComments = document.createElement('p').classList.add('text-comment');
+  let name = await readfirebase(userState.uid, 'name');
+  let posted = await fillposted(userState.uid);
+  //let comment = await fnFillComent(userState.uid,idPost);
+  const insertComment= document.querySelector('.all_post_comment');
+  const numpost = Object.keys(posted);
+  const listPost = numpost.map(function (x) {
  
-  
-  
+    if(posted[x].comments ===undefined){
+      console.log('es indefinido');
+    }
+    else{
+    const Listcomments = Object.keys(posted[x].comments);
+    const listcommen=Listcomments.map((item)=>{
+      return posted[x].comments[item].comment
+    });
+    return listcommen;
+  }
 
 
+});
+
+const printComment = pages.comment.template(name,listPost);
+    insertComment.innerHTML = printComment;
 }
+
+
