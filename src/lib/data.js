@@ -154,6 +154,11 @@ export async function fnFillLiks(user, idPost) {
     });
   return liks;
 }
+export async function fnDeletePost(user, idPost) {
+  firebase.firestore().collection(user).doc('userPost').get()
+    .then((doc) => doc.data().city
+    )}
+}
 
 /* export async function daletePost(posts){
   // Obtener el objeto `FieldValue` 

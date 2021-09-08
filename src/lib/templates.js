@@ -173,23 +173,22 @@ export const pages = {
     path: '/post',
     template: (posts, imgP, name) => {
       let result = ``;
-      if (posts.length === 1) {
-        return " ";
-      }
+      if (posts.length === 1) { return " "; }
       else {
         posts.forEach(element => {
-       if ((element[0] === ' ') || (element[0] === '')){
-      
-      }
-      else{
-      result += 
+       if ((element[0] === ' ') || (element[0] === '')){console.log('no imprime en blanco');}
+      else {
+       result += 
     
      `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
-      <div class="posted"><p id="publicacion">${element[0]}</p></div>
+      <div class="posted"><p id="publicacion">${element[0]}</p>
+      <input type="button" id="${element[1]}" class="delete" value="Eliminar">
+      <input type="button" id="${element[1]}" class="update" value="Actualizar">
+      </div>
       <div class="box_post_btn">
-          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p class="likes"></p>
+          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p id="likes"></p>
           <img class="menu_btn_text" src="./img/shericon2.png">
           <input type="image" id="${element[1]}" class="comment menu_btn_text" src="./img/coment.png">
       </div>
@@ -228,22 +227,22 @@ export const pages = {
       console.log(listComment);
       let results = ``;
       listComment.forEach(element => {
-        if ((element === ' ') || (element === '')){
-       
-       }
-       else{
-         console.log(element);
-     results+= `
-     
-       
+        if ((element === ' ') || (element === '')){console.log('no imrime en blanco') } 
+        else {
+          results += `
           <p id="textName">${name}</p>
           <p id="textComment">${element}</p>
-      
-   
-  `
-    }
-  });
-    return results
+          `;
+        }
+      });
+      return results;
+    },
   },
+  likes: {
+    path: '/likes',
+    template: (likes) => {
+      const results = `<p>${likes}</p> `;
+      return results;
+    },
   },
 };

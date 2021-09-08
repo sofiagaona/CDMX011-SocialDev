@@ -206,13 +206,28 @@ async function router() {
         });
         const listBtnLike = document.querySelectorAll('input.like');
         listBtnLike.forEach((item) => {
-          let likes = 0;
-          item.addEventListener('click', async () => {
+          item.addEventListener('click', () => {
             const idPost = item.id;
-            fnPrintLikes(idPost);
-            console.log(likes);
+            let likes = 0;
             likes += 1;
             fnWriteLiks(idPost, userState.uid, likes);
+            fnPrintLikes(idPost);
+          });
+        });
+        const listBtnDelete = document.querySelectorAll('input.delete');
+        listBtnDelete.forEach((item) => {
+          item.addEventListener('click', () => {
+            const idPost = item.id;
+            console.log("este boton borra el post" + idPost);
+            fnDeletePost(userState.uid, idPost);
+          });
+        });
+        const listBtnUpdate = document.querySelectorAll('input.update');
+        listBtnUpdate.forEach((item) => {
+          item.addEventListener('click', () => {
+            const idPost = item.id;
+            console.log("este boton Actualiza el post" + idPost);
+            
           });
         });
       } else {
@@ -265,9 +280,10 @@ async function fnPrintComments(idPost) {
 }
 async function fnPrintLikes(idPost) {
   const name = await readfirebase(userState.uid, 'name');
-  const insert = document.querySelector('.likes');
+  const insert = document.getElementById('likes');
   const likes = await fnFillLiks(userState.uid, idPost);
- 
+  const printLiks = pages.likes.template(likes);
+  insert.innerHTML = printLiks;
 }
 
 /* async function fnPrintComments(idPost){
