@@ -189,7 +189,7 @@ export const pages = {
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
       <div class="posted"><p id="publicacion">${element[0]}</p></div>
       <div class="box_post_btn">
-          <img class="menu_btn_text" src="./img/likeicon.png">
+          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p class="likes"></p>
           <img class="menu_btn_text" src="./img/shericon2.png">
           <input type="image" id="${element[1]}" class="comment menu_btn_text" src="./img/coment.png">
       </div>
@@ -224,20 +224,21 @@ export const pages = {
   },
   comment: {
     path: '/comment',
-    template: (name, comment)=>{
-      console.log(comment);
+    template: (listComment, name)=>{
+      console.log(listComment);
       let results = ``;
-      comment.forEach(element => {
+      listComment.forEach(element => {
         if ((element === ' ') || (element === '')){
        
        }
        else{
+         console.log(element);
      results+= `
      
-        <div id="box_comments">
+       
           <p id="textName">${name}</p>
-          <p id="textComment>${element}</p>
-        </div>
+          <p id="textComment">${element}</p>
+      
    
   `
     }

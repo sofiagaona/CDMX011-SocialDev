@@ -107,35 +107,52 @@ export function readfirebase(idUser, type) {
   }
 }
 
-export function fillposted(user){
-
-  let posted = firebase.firestore().collection(user).doc('userPost').get()
-  .then((doc) => {
-    return doc.data();
-  });
-
-  return posted
-
+export function fillposted(user) {
+  const posted = firebase.firestore().collection(user).doc('userPost').get()
+    .then((doc) => {
+      return doc.data();
+    });
+  return posted;
 }
 
-export async function fnWriteCommentFb(idUser, idPost, comment){
-  let idComment = uuid.v1();
-  console.log(idComment);
-  
+export async function fnWriteCommentFb(idUser, idPost, comment) {
+  const idComment = uuid.v1();
   firebase.firestore().collection(idUser).doc('userPost').update({
-    [`${idPost}.comments.${idComment}.comment`]:comment,
-    [`${idPost}.comments.${idComment}.userId`]:idUser
+    [`${idPost}.comments.${idComment}.comment`]: comment,
+    [`${idPost}.comments.${idComment}.userId`]: idUser,
   });
-
+}
+export async function fnWriteLiks(idPost, user, count) {
+  firebase.firestore().collection(user).doc('userPost').update({
+    [`${idPost}.likes`]: count,
+  });
 }
 
-export async function fnFillComent(user,idPost){
-  let comment = firebase.firestore().collection(user).doc('userPost').get()
-  .then((doc) => {
-    return doc.data();
-  });
-
-  return posted
+export async function fnFillComent(user, idPost) {
+  const comments = firebase.firestore().collection(user).doc('userPost').get()
+    .then((quereySnapshot) => {
+      const snapshot = quereySnapshot.data();
+      const numcoment = Object.keys(snapshot);
+      const filterComm = numcoment.filter((item) => { return item === idPost });
+      if (filterComm.join("") === idPost) {
+        return (snapshot[idPost].comments);
+      }
+    });
+  return comments;
+}
+export async function fnFillLiks(user, idPost) {
+  const liks = firebase.firestore().collection(user).doc('userPost').get()
+    .then((quereySnapshot) => {
+      const snapshot = quereySnapshot.data();
+      console.log(snapshot);
+      const numLiks = Object.keys(snapshot);
+      console.log(numLiks);
+      const filterLiks= numLiks.filter((item) => { return item === idPost });
+      if (filterLiks.join("") === idPost) {
+        return (snapshot[idPost].likes);
+      }
+    });
+  return liks;
 }
 
 /* export async function daletePost(posts){
