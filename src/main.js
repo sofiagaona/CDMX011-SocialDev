@@ -4,7 +4,7 @@ import {
 } from './lib/nodemod.js';
 import {
   sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted,
-  fnWriteCommentFb, fnFillComent, fnWriteLiks, fnFillLiks,
+  fnWriteCommentFb, fnFillComent, fnWriteLiks, fnFillLiks, fnDeletePost, fnposted,
 } from './lib/data.js';
 
 
@@ -216,18 +216,17 @@ async function router() {
         });
         const listBtnDelete = document.querySelectorAll('input.delete');
         listBtnDelete.forEach((item) => {
-          item.addEventListener('click', () => {
+          item.addEventListener('click', async () => {
             const idPost = item.id;
-            console.log("este boton borra el post" + idPost);
-            fnDeletePost(userState.uid, idPost);
+            const respuesta = window.confirm("¿Está seguro de eliminar este Post?");
+            if (respuesta) { fnDeletePost(userState.uid, idPost); window.location.reload(); }
           });
         });
         const listBtnUpdate = document.querySelectorAll('input.update');
         listBtnUpdate.forEach((item) => {
           item.addEventListener('click', () => {
             const idPost = item.id;
-            console.log("este boton Actualiza el post" + idPost);
-            
+            fnEditarPost(idPost);
           });
         });
       } else {
@@ -241,19 +240,6 @@ async function router() {
       break;
   }
 }
-
-/* async function fnPrintPosted1() {
-  let  insert = document.querySelector('.all_profile_post');
-  const posted = await fillposted(userState.uid);
-  const numpost = Object.keys(posted);
-  numpost.map(function (x) {
-  insert.innerHTML = insert.innerHTML + pages.post.template; 
-    console.log(posted[x].post);
-    console.log(posted[x].likes);
-    console.log(posted[x].comments);
-  } );
-
-} */
 
 async function fnPrintPosted() {
   const img = await readfirebase(userState.uid, 'img');
@@ -285,32 +271,11 @@ async function fnPrintLikes(idPost) {
   const printLiks = pages.likes.template(likes);
   insert.innerHTML = printLiks;
 }
-
-/* async function fnPrintComments(idPost){
-  console.log(idPost);
-  let name = await readfirebase(userState.uid, 'name');
-  let posted = await fillposted(userState.uid);
-  let comment = await fnFillComent(userState.uid,idPost);
-  const insertComment= document.querySelector('.all_post_comment');
-  const numpost = Object.keys(posted);
-  const listPost = numpost.map(function (x) {
- 
-    if(posted[x].comments ===undefined){
-      console.log('es indefinido');
-    }
-    else{
-    const Listcomments = Object.keys(posted[x].comments);
-    const listcommen=Listcomments.map((item)=>{
-      return posted[x].comments[item].comment
-    });
-    return listcommen;
-  }
-
-
-});
-
-const printComment = pages.comment.template(name,listPost);
-    insertComment.innerHTML = printComment;
-} */
-
-
+async function fnEditarPost(idPost) {
+  console.log('funcion');
+  const insert = document.querySelector('.edit_profile_post');
+  const post = await fnposted(userState.uid, idPost);
+  const printPost = pages.editpost.template(post);
+  console.log(insert.innerHTML = printPost);
+  insert.innerHTML = printPost;
+}

@@ -144,9 +144,7 @@ export async function fnFillLiks(user, idPost) {
   const liks = firebase.firestore().collection(user).doc('userPost').get()
     .then((quereySnapshot) => {
       const snapshot = quereySnapshot.data();
-      console.log(snapshot);
       const numLiks = Object.keys(snapshot);
-      console.log(numLiks);
       const filterLiks= numLiks.filter((item) => { return item === idPost });
       if (filterLiks.join("") === idPost) {
         return (snapshot[idPost].likes);
@@ -155,11 +153,23 @@ export async function fnFillLiks(user, idPost) {
   return liks;
 }
 export async function fnDeletePost(user, idPost) {
-  firebase.firestore().collection(user).doc('userPost').get()
-    .then((doc) => doc.data().city
-    )}
+  const postRef = firebase.firestore().collection(user).doc('userPost');
+  const res = await postRef.update({
+    [idPost]: firebase.firestore.FieldValue.delete(),
+  });
 }
-
+export async function fnposted(user, idPost) {
+  const pots = firebase.firestore().collection(user).doc('userPost').get()
+    .then((quereyPost) => {
+      const snapshot = quereyPost.data();
+      const numPost = Object.keys(snapshot);
+      const filterPost = numPost.filter((item) => { return item === idPost });
+      if (filterPost.join("") === idPost) {
+        return (snapshot[idPost].post);
+      }
+    });
+  return pots;
+}
 /* export async function daletePost(posts){
   // Obtener el objeto `FieldValue` 
 const FieldValue = admin.firestore.FieldValue;

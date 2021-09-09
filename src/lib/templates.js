@@ -173,18 +173,17 @@ export const pages = {
     path: '/post',
     template: (posts, imgP, name) => {
       let result = ``;
-      if (posts.length === 1) { return " "; }
+      if (posts.length === 1) {}
       else {
         posts.forEach(element => {
-       if ((element[0] === ' ') || (element[0] === '')){console.log('no imprime en blanco');}
-      else {
-       result += 
-    
-     `
+          if ((element[0] === ' ') || (element[0] === '')){}
+          else {
+            result += `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
       <div class="posted"><p id="publicacion">${element[0]}</p>
       <input type="button" id="${element[1]}" class="delete" value="Eliminar">
+      <section class="edit_profile_post"></section>
       <input type="button" id="${element[1]}" class="update" value="Actualizar">
       </div>
       <div class="box_post_btn">
@@ -195,12 +194,11 @@ export const pages = {
     
     </div>
 
-    `
-       }
-  });
-   
-  return result;
-     }
+    `;
+          }
+        });
+        return result;
+      }
     },
   },
   makeacomment: {
@@ -242,6 +240,33 @@ export const pages = {
     path: '/likes',
     template: (likes) => {
       const results = `<p>${likes}</p> `;
+      return results;
+    },
+  },
+  editpost: {
+    path: '/editpost',
+    template: (post) =>{
+      console.log('template');
+      const results = `
+       <form class="box_make_post">
+          <p class="subnameuser"></p>
+        </div>
+        <div class="post_publish">
+          <textarea class='text_post' type ='text'>${post}</textarea>
+          <div class="box_post_btn_publish">
+            <div class="btn_post_publisher"> 
+              <img class="menu_btn_publish" src="./img/likeicon.png">
+              <img class="menu_btn_publish" src="./img/shericon2.png">
+              <img class="menu_btn_publish" src="./img/coment.png">
+            </div>  
+            <div>
+              <button type="submit" id="publish_post_profile">Editar</button>
+            </div>
+          </div>  
+        </div> 
+      </form>
+     
+      `;
       return results;
     },
   },
