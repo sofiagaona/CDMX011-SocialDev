@@ -58,7 +58,7 @@ export function writeFareBase(idUser, type, data) {
       break;
     case 'post':
       const date = new Date();
-      const datePost = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+      const datePost = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       firebase.firestore().collection(idUser).doc('userPost').update({
         [datePost]: {
 
@@ -70,7 +70,7 @@ export function writeFareBase(idUser, type, data) {
 
       break;
     default: message = 'Función mal definida';
-}
+  }
   return message;
 }
 
@@ -133,7 +133,7 @@ export async function fnFillComent(user, idPost) {
     .then((quereySnapshot) => {
       const snapshot = quereySnapshot.data();
       const numcoment = Object.keys(snapshot);
-      const filterComm = numcoment.filter((item) => { return item === idPost });
+      const filterComm = numcoment.filter((item) => { return item === idPost; });
       if (filterComm.join("") === idPost) {
         return (snapshot[idPost].comments);
       }
@@ -145,7 +145,7 @@ export async function fnFillLiks(user, idPost) {
     .then((quereySnapshot) => {
       const snapshot = quereySnapshot.data();
       const numLiks = Object.keys(snapshot);
-      const filterLiks= numLiks.filter((item) => { return item === idPost });
+      const filterLiks = numLiks.filter((item) => item === idPost);
       if (filterLiks.join("") === idPost) {
         return (snapshot[idPost].likes);
       }
@@ -163,22 +163,16 @@ export async function fnposted(user, idPost) {
     .then((quereyPost) => {
       const snapshot = quereyPost.data();
       const numPost = Object.keys(snapshot);
-      const filterPost = numPost.filter((item) => { return item === idPost });
+      const filterPost = numPost.filter((item) => item === idPost);
       if (filterPost.join("") === idPost) {
         return (snapshot[idPost].post);
       }
     });
   return pots;
 }
-/* export async function daletePost(posts){
-  // Obtener el objeto `FieldValue` 
-const FieldValue = admin.firestore.FieldValue;
-
-// Create a document reference
-const postRef = db.collection(user).doc('userPost');
-
-// Remove the 'capital' field from the document
-const res = await postRef.update({
-  posts: FieldValue.delete()
-});
-} */
+export async function editPost(user, idPost, post) {
+  console.log(post);
+  firebase.firestore().collection(user).doc('userPost').update({
+    [`${idPost}.post`]: post,
+  });
+}
