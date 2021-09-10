@@ -5,6 +5,7 @@ import {
 import {
   sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted,
   fnWriteCommentFb, fnFillComent, fnWriteLiks, fnFillLiks, fnDeletePost, fnposted, editPost,
+  fnAllPost,
 } from './lib/data.js';
 
 let users = [];
@@ -36,6 +37,7 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'namefirst', singUpName);
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
+      // fnSaveUid(users.uid);
       firebase.firestore().collection(users.uid).doc('userPost').set({
         [new Date]: {
 
@@ -93,6 +95,8 @@ async function router() {
       if (userState) {
         const info = await readfirebase(userState.uid, 'name');
         const img = await readfirebase(userState.uid, 'img');
+        // const idCollection = fnSaveUid();
+        // AllPost();
         objMain.innerHTML = pages.home2.template;
         document.querySelector('.profileimg').src = img;
         document.querySelector('.subprofileimg').src = img;
@@ -200,17 +204,27 @@ async function router() {
               e.preventDefault();
               const comment = document.querySelector('.make_comment').value;
               fnWriteCommentFb(userState.uid, idPost, comment);
+              router();
             });
           });
         });
         const listBtnLike = document.querySelectorAll('input.like');
         listBtnLike.forEach((item) => {
-          item.addEventListener('click', () => {
-            const idPost = item.id;
-            let likes = 0;
-            likes += 1;
-            fnWriteLiks(idPost, userState.uid, likes);
-            fnPrintLikes(idPost);
+          item.addEventListener('click', async () => {
+            let count = await fnFillLiks(userState.uid, item.id);
+            count += 1;
+            fnWriteLiks(item.id, userState.uid, count);
+            const insert = document.querySelectorAll('p.p_likes');
+            const likes = await fnFillLiks(userState.uid, item.id);
+            insert.forEach((x) => {
+              let itemid = item.id;
+              itemid = itemid.replace(/[^a-zA-Z0-9]/g, '');
+              let xid = x.id;
+              xid = xid.replace(/[^a-zA-Z0-9]/g, '');
+              if (itemid === xid) {
+                x.innerHTML = likes;
+              }
+            });
           });
         });
         const listBtnDelete = document.querySelectorAll('input.delete');
@@ -219,12 +233,12 @@ async function router() {
             const idPost = item.id;
             const respuesta = window.confirm("¿Está seguro de eliminar este Post?");
             (respuesta) ? fnDeletePost(userState.uid, idPost) : console.log('no se borro');
+            router();
           });
         });
         const listBtnUpdate = document.querySelectorAll('input.update');
         listBtnUpdate.forEach((item) => {
           item.addEventListener('click', async () => {
-            console.log(item.id);
             const post = await fnposted(userState.uid, item.id);
             document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
             document.querySelector('.make_post_on_profile').style.display = "flex";
@@ -234,6 +248,7 @@ async function router() {
               const posted = document.querySelector('.text_post').value;
               console.log(posted);
               editPost(userState.uid, item.id, posted);
+              router();
             });
           });
         });
@@ -272,16 +287,20 @@ async function fnPrintComments(idPost) {
   const printComment = pages.comment.template(listComment, name);
   insert.innerHTML = printComment;
 }
-async function fnPrintLikes(idPost) {
-  const name = await readfirebase(userState.uid, 'name');
-  const insert = document.getElementById('likes');
-  const likes = await fnFillLiks(userState.uid, idPost);
-  const printLiks = pages.likes.template(likes);
-  insert.innerHTML = printLiks;
-}
+
 async function fnEditarPost(idPost) {
   const post = await fnposted(userState.uid, idPost);
   document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
   document.querySelector('.make_post_on_profile').style.display = "flex";
   document.querySelector('.box_make_post').style.display = "flex";
 }
+async function AllPost() {
+  const allPosts = fnAllPost();
+}
+/* function fnSaveUid(user) {
+  console.log (user);
+  const collecion = [];
+  collecion.push(user);
+  console.log(collecion);
+  return saveIdCollecion;
+} */

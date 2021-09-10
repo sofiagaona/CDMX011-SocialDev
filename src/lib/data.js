@@ -114,6 +114,12 @@ export function fillposted(user) {
     });
   return posted;
 }
+export function fnAllPost() {
+  const allPost = firebase.firestore().collection().get()
+    .then((collection) => {
+      console.log(collection.data());
+    });
+}
 
 export async function fnWriteCommentFb(idUser, idPost, comment) {
   const idComment = uuid.v1();
@@ -141,17 +147,17 @@ export async function fnFillComent(user, idPost) {
   return comments;
 }
 export async function fnFillLiks(user, idPost) {
-  const liks = firebase.firestore().collection(user).doc('userPost').get()
-    .then((quereySnapshot) => {
-      const snapshot = quereySnapshot.data();
+  return firebase.firestore().collection(user).doc('userPost').get()
+    .then((doc) => {
+      const snapshot = doc.data();
       const numLiks = Object.keys(snapshot);
       const filterLiks = numLiks.filter((item) => item === idPost);
       if (filterLiks.join("") === idPost) {
         return (snapshot[idPost].likes);
       }
     });
-  return liks;
 }
+
 export async function fnDeletePost(user, idPost) {
   const postRef = firebase.firestore().collection(user).doc('userPost');
   const res = await postRef.update({
@@ -171,7 +177,6 @@ export async function fnposted(user, idPost) {
   return pots;
 }
 export async function editPost(user, idPost, post) {
-  console.log(post);
   firebase.firestore().collection(user).doc('userPost').update({
     [`${idPost}.post`]: post,
   });

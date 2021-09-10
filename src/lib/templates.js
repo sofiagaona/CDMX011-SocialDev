@@ -155,7 +155,7 @@ export const pages = {
         <p class="subnameuser"></p>
       </div>
       <div class="post_publish">
-        <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text'></textarea>
+        <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text' required></textarea>
         <div class="box_post_btn_publish">
           <div class="btn_post_publisher"> 
             <img class="menu_btn_publish" src="./img/likeicon.png">
@@ -176,11 +176,9 @@ export const pages = {
     path: '/post',
     template: (posts, imgP, name) => {
       let result = ``;
-      if (posts.length === 1) {console.log('no imprime vacio');}
-      else {
+      if ((posts.length === 0)) { console.log('no imprime vacio'); } else {
         posts.forEach((element) => {
-          if ((element[0] === ' ') || (element[0] === '')){console.log('no imprime vacio');} }
-          else {
+          if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
             result += `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
@@ -189,7 +187,7 @@ export const pages = {
       <input type="button" id="${element[1]}" class="update" value="Actualizar">
       </div>
       <div class="box_post_btn">
-          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p id="likes"></p>
+          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p id="${element[1]} "class="p_likes"></p>
           <img class="menu_btn_text" src="./img/shericon2.png">
           <input type="image" id="${element[1]}" class="comment menu_btn_text" src="./img/coment.png">
       </div>
@@ -212,7 +210,7 @@ export const pages = {
     <section class="all_post_comment">
     </section>
       <form id="form_make_comment" class="form">
-        <input type="text" class="make_comment" placeholder="Hacer comentario">
+        <input type="text" class="make_comment" placeholder="Hacer comentario" required>
         <button type="submint" class="send_comment">Enviar</button>
       </form>
     </div>
@@ -224,11 +222,9 @@ export const pages = {
   comment: {
     path: '/comment',
     template: (listComment, name) => {
-      console.log(listComment);
       let results = ``;
       listComment.forEach((element) => {
-        if ((element === ' ') || (element === '')){ console.log('no imrime en blanco'); } 
-        else {
+        if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
           results += `
           <p id="textName">${name}</p>
           <p id="textComment">${element}</p>
@@ -238,17 +234,9 @@ export const pages = {
       return results;
     },
   },
-  likes: {
-    path: '/likes',
-    template: (likes) => {
-      const results = `<p>${likes}</p> `;
-      return results;
-    },
-  },
   editpost: {
     path: '/editpost',
     template: (post) => {
-      console.log('template');
       const results = `
        <form class="box_make_post">
           <p class="subnameuser"></p>
