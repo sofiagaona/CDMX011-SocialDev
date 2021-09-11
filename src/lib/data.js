@@ -57,13 +57,10 @@ export function writeFareBase(idUser, type, data, idDoc) {
     });
       break;
     case 'post':
-      // const date = new Date();
-      // const datePost = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       const idPost = uuid.v1();
       firebase.firestore().collection('users').doc(idUser).update({
-        [`${idPost}.posted.post`]: data,
-        [`${idPost}.posted.like`]: 0,
-        // [`${idPost}.posted.comments`]: '',
+        [`posted.${idPost}.post`]: data,
+        [`posted.${idPost}.like`]: 0,
       });
 
       break;
@@ -98,7 +95,6 @@ export function readfirebase(idUser, type) {
         return url;
       })
         .catch((error) => {
-        // Handle any errors
         });
 
     default:
@@ -127,13 +123,14 @@ export async function fnWriteCommentFb(idUser, idPost, comment) {
   console.log(idPost);
   const idComment = uuid.v1();
   firebase.firestore().collection('users').doc(idUser).update({
-    [`${idPost}.posted.comments.${idComment}.comment`]: comment,
-    [`${idPost}.posted.comments.${idComment}.userId`]: idUser,
+    [`posted.${idPost}.comments.${idComment}.comment`]: comment,
+    [`posted.${idPost}.comments.${idComment}.userId`]: idUser,
   });
 }
 export async function fnWriteLiks(idPost, user, count) {
+  console.log(count);
   firebase.firestore().collection('users').doc(user).update({
-    [`${idPost}.posted.like`]: count,
+    [`posted.${idPost}.like`]: count,
   });
 }
 
@@ -142,9 +139,13 @@ export async function fnFillComent(user, idPost) {
     .then((quereySnapshot) => {
       const snapshot = quereySnapshot.data();
       const numcoment = Object.keys(snapshot);
-      const filterComm = numcoment.filter((item) => { return item === idPost; });
+      const filterKeys = numcoment.filter((key) => { 
+        if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+      });
+      const comm = Object.keys(snapshot[filterKeys]);
+      const filterComm = comm.filter((item) => { return item === idPost; });
       if (filterComm.join("") === idPost) {
-        return (snapshot[idPost].posted.comments);
+        return (snapshot[filterKeys][idPost].comments);
       }
     });
 }
@@ -153,9 +154,13 @@ export async function fnFillLiks(user, idPost) {
     .then((doc) => {
       const snapshot = doc.data();
       const numLiks = Object.keys(snapshot);
-      const filterLiks = numLiks.filter((item) => item === idPost);
+      const filterKeys = numLiks.filter((key) => { 
+        if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+      });
+      const like = Object.keys(snapshot[filterKeys]);
+      const filterLiks = like.filter((item) => item === idPost);
       if (filterLiks.join("") === idPost) {
-        return (snapshot[idPost].posted.like);
+        return (snapshot[filterKeys][idPost].like);
       }
     });
 }
@@ -163,7 +168,7 @@ export async function fnFillLiks(user, idPost) {
 export async function fnDeletePost(user, idPost) {
   const postRef = firebase.firestore().collection('users').doc(user);
   const res = await postRef.update({
-    [idPost]: firebase.firestore.FieldValue.delete(),
+    [`posted.${idPost}`]: firebase.firestore.FieldValue.delete(),
   });
 }
 export async function fnposted(user, idPost) {
@@ -172,15 +177,19 @@ export async function fnposted(user, idPost) {
     .then((quereyPost) => {
       const snapshot = quereyPost.data();
       const numPost = Object.keys(snapshot);
-      const filterPost = numPost.filter((item) => item === idPost);
+      const filterKeys = numPost.filter((key) => { 
+        if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+      });
+      const post = Object.keys(snapshot[filterKeys]);
+      const filterPost = post.filter((item) => item === idPost);
       if (filterPost.join("") === idPost) {
-        return (snapshot[idPost].posted.post);
+        return (snapshot[filterKeys][idPost].post);
       }
     });
   return pots;
 }
 export async function editPost(user, idPost, post) {
   firebase.firestore().collection('users').doc(user).update({
-    [`${idPost}.posted.post`]: post,
+    [`posted.${idPost}.post`]: post,
   });
 }

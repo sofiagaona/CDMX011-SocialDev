@@ -172,12 +172,10 @@ export const pages = {
   post: {
     path: '/post',
     template: (posts, imgP, name) => {
-      console.log(posts);
       let result = ``;
       if ((posts.length === 0)) { console.log('no imprime vacio'); } else {
         posts.forEach((element) => {
-          console.log(element[0]);
-          if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
+          if ((element[0] === ' ') || (element[0] === '')) { console.log('no imrime en blanco'); } else {
             result += `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>

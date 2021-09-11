@@ -9,7 +9,6 @@ import {
 } from './lib/data.js';
 
 let users = [];
-let idDoc = '';
 
 let userState = firebase.auth().currentUser;
 document.getElementById('idLogOut').addEventListener('click', fnLogOut);
@@ -38,6 +37,7 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'namefirst', singUpName);
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
+      writeFareBase(users.uid, 'post', "");
       // fnSaveUid(users.uid);
       // idDoc = uuid.v1();
       // console.log(idDoc);
@@ -194,8 +194,7 @@ async function router() {
           document.querySelector('.box_make_post').addEventListener('submit', (e) => {
             e.preventDefault();
             const post = document.querySelector('.text_post').value;
-            console.log(idDoc);
-            writeFareBase(userState.uid, 'post', post, idDoc);
+            writeFareBase(userState.uid, 'post', post);
             router();
           });
         });
@@ -280,9 +279,8 @@ async function fnPrintPosted() {
   const filterKeys = numpost.filter((key) => { 
     if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
   });
-  const listPost = filterKeys.map((item) => {
-    return [snapshot[item].posted.post, item];
-  });
+  const posted = Object.keys(snapshot[filterKeys]);
+  const listPost = posted.map((item) => { return [snapshot[filterKeys][item].post, item]; });
   const printPost = pages.post.template(listPost, img, name);
   insert.innerHTML = printPost;
 }
@@ -308,26 +306,14 @@ async function AllPost() {
   const name = await readfirebase(userState.uid, 'name');
   const insert = document.querySelector('.all_post');
   const snapshot = await fnAllPost();
-  console.log (snapshot);
-  const numPost = snapshot.map((key) => {
-    return Object.keys(key).filter((key)=>{
+  const allPost = snapshot.map((item) => {
+    const numpost = Object.keys(item);
+    const filterKeys = numpost.filter((key) => { 
       if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
     });
+    const posted = Object.keys(item[filterKeys]);
+    const listPost = posted.map((ite) => { return [item[filterKeys][ite].post, ite]; });
+    const printPost = pages.post.template(listPost, img, name);
+    insert.innerHTML += printPost;
   });
-  const listPosted = numPost.map((item2) => { 
-    console.log(numPost); 
-    console.log(item2);
-    return [numPost[item2].posted.post, item]; });
-
-  console.log(numPost);
-  console.log(listPosted);
-  /* return (Object.keys(snapshot)).filter((key) => { 
-      if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
-    }).map((item2) => { return [snapshot()[item].posted.post, item]; });
-  }) */
-
-  
-  /*const printPost = pages.post.template(filterPost, img, name);
-  insert.innerHTML = printPost;
-  console.log(insert.innerHTML = printPost);*/
 }
