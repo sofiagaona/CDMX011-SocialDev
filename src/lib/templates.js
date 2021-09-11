@@ -38,13 +38,10 @@ export const pages = {
                  <div><img class="profileimg" src=""></div>
                  <div><input class="btn_profile" type="button" value="Perfil"></div>
                  <div><input class="btn_make_post" type="button" value="Publicar"></div>
-                 <div class="box_post">
-                 <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-                 <div class="posted"><p>Esta es una Publicacion</p></div>
-                 <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-                 <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
                  </div>
-               </section>  
+               </section> 
+               <section class="all_post">
+                </section> 
                  `,
   },
   singUp: {
@@ -175,9 +172,11 @@ export const pages = {
   post: {
     path: '/post',
     template: (posts, imgP, name) => {
+      console.log(posts);
       let result = ``;
       if ((posts.length === 0)) { console.log('no imprime vacio'); } else {
         posts.forEach((element) => {
+          console.log(element[0]);
           if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
             result += `
       <div class="box_post">

@@ -9,6 +9,7 @@ import {
 } from './lib/data.js';
 
 let users = [];
+let idDoc = '';
 
 let userState = firebase.auth().currentUser;
 document.getElementById('idLogOut').addEventListener('click', fnLogOut);
@@ -38,14 +39,19 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
       // fnSaveUid(users.uid);
-      firebase.firestore().collection(users.uid).doc('userPost').set({
-        [new Date]: {
-
-          post: " ",
+      // idDoc = uuid.v1();
+      // console.log(idDoc);
+      // firebase.firestore().collection('users').doc(users.uid).set({});
+      /* firebase.firestore().collection('users').doc(users.uid).set({
+        [idDoc]: {
+          name: "",
+          work: "",
+          city: "",
+          post: "",
           comments: "",
           likes: 0,
         },
-      });
+      }); */
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -99,10 +105,11 @@ async function router() {
         // AllPost();
         objMain.innerHTML = pages.home2.template;
         document.querySelector('.profileimg').src = img;
-        document.querySelector('.subprofileimg').src = img;
-        document.querySelector('.subnameuser').innerHTML = info;
+        // document.querySelector('.subprofileimg').src = img;
+        // document.querySelector('.subnameuser').innerHTML = info;
         document.querySelector('.nameUser').innerHTML = info;
         document.querySelector('.btn_profile').addEventListener('click', fnGoProfile);
+        const posted = AllPost();
       } else {
         objMain.innerHTML = pages.home.template;
         const objBotonSingup = document.getElementById('id_home_text_registro');
@@ -138,8 +145,8 @@ async function router() {
         objMain.innerHTML = pages.profile.template;
         await fnPrintPosted();
         document.querySelector('.profileimg').src = img;
-        document.querySelector('.subprofileimg').src = img;
-        document.querySelector('.subnameuser').innerHTML = name;
+        // document.querySelector('.subprofileimg').src = img;
+        // document.querySelector('.subnameuser').innerHTML = name;
         document.querySelector('.nameUser').innerHTML = name;
         document.querySelector('.nameUserProfile').innerHTML = name;
         document.querySelector('.cityUser').innerHTML = city;
@@ -187,7 +194,8 @@ async function router() {
           document.querySelector('.box_make_post').addEventListener('submit', (e) => {
             e.preventDefault();
             const post = document.querySelector('.text_post').value;
-            writeFareBase(userState.uid, 'post', post);
+            console.log(idDoc);
+            writeFareBase(userState.uid, 'post', post, idDoc);
             router();
           });
         });
@@ -246,7 +254,6 @@ async function router() {
             document.querySelector('.box_make_post').addEventListener('submit', (e) => {
               e.preventDefault();
               const posted = document.querySelector('.text_post').value;
-              console.log(posted);
               editPost(userState.uid, item.id, posted);
               router();
             });
@@ -268,11 +275,13 @@ async function fnPrintPosted() {
   const img = await readfirebase(userState.uid, 'img');
   const name = await readfirebase(userState.uid, 'name');
   const insert = document.querySelector('.all_profile_post');
-  const posted = await fillposted(userState.uid);
-  const numpost = Object.keys(posted);
-  const listPost = numpost.map((item) => {
-    const idPost = item;
-    return [posted[item].post, idPost];
+  const snapshot = await fillposted(userState.uid);
+  const numpost = Object.keys(snapshot);
+  const filterKeys = numpost.filter((key) => { 
+    if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+  });
+  const listPost = filterKeys.map((item) => {
+    return [snapshot[item].posted.post, item];
   });
   const printPost = pages.post.template(listPost, img, name);
   insert.innerHTML = printPost;
@@ -295,12 +304,30 @@ async function fnEditarPost(idPost) {
   document.querySelector('.box_make_post').style.display = "flex";
 }
 async function AllPost() {
-  const allPosts = fnAllPost();
+  const img = await readfirebase(userState.uid, 'img');
+  const name = await readfirebase(userState.uid, 'name');
+  const insert = document.querySelector('.all_post');
+  const snapshot = await fnAllPost();
+  console.log (snapshot);
+  const numPost = snapshot.map((key) => {
+    return Object.keys(key).filter((key)=>{
+      if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+    });
+  });
+  const listPosted = numPost.map((item2) => { 
+    console.log(numPost); 
+    console.log(item2);
+    return [numPost[item2].posted.post, item]; });
+
+  console.log(numPost);
+  console.log(listPosted);
+  /* return (Object.keys(snapshot)).filter((key) => { 
+      if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
+    }).map((item2) => { return [snapshot()[item].posted.post, item]; });
+  }) */
+
+  
+  /*const printPost = pages.post.template(filterPost, img, name);
+  insert.innerHTML = printPost;
+  console.log(insert.innerHTML = printPost);*/
 }
-/* function fnSaveUid(user) {
-  console.log (user);
-  const collecion = [];
-  collecion.push(user);
-  console.log(collecion);
-  return saveIdCollecion;
-} */
