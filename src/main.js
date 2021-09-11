@@ -151,7 +151,6 @@ async function router() {
         document.querySelector('.nameUserProfile').innerHTML = name;
         document.querySelector('.cityUser').innerHTML = city;
         document.querySelector('.workUser').innerHTML = work;
-
         document.querySelector('.btn_editprofile').addEventListener('click', () => {
           document.querySelector('.dateUserHome1').style.display = "flex";
           document.querySelector('.ventana_modal_editar').style.display = "flex";
@@ -159,7 +158,6 @@ async function router() {
           document.querySelector('.name_profile').value = name;
           document.querySelector('.city_profile').value = city;
           document.querySelector('.work_profile').value = work;
-
           document.getElementById('idfile').addEventListener('input', async () => {
             const file = document.getElementById('idfile');
             const stateOfLoad = firebase.storage().ref(userState.uid + '/profileimg.jpg').put(file.files[0]);
@@ -185,7 +183,6 @@ async function router() {
             router();
           });
         });
-
         document.querySelector(".btn_make_post").addEventListener('click', () => {
           document.querySelector('.make_post_on_profile').innerHTML = pages.makeapost.template;
           document.querySelector('.make_post_on_profile').style.display = "flex";
@@ -198,66 +195,10 @@ async function router() {
             router();
           });
         });
-        const listelement = document.querySelectorAll('input.comment');
-        listelement.forEach((item) => {
-          item.addEventListener('click', () => {
-            const idPost = item.id;
-            objMain.innerHTML = pages.makeacomment.template;
-            fnPrintComments(idPost);
-            document.querySelector('.dateUserHome2').style.display = "flex";
-            document.querySelector('.ventana_modal_comment').style.display = "flex";
-            document.querySelector('.comment');
-            document.getElementById('form_make_comment').addEventListener('submit', (e) => {
-              e.preventDefault();
-              const comment = document.querySelector('.make_comment').value;
-              fnWriteCommentFb(userState.uid, idPost, comment);
-              router();
-            });
-          });
-        });
-        const listBtnLike = document.querySelectorAll('input.like');
-        listBtnLike.forEach((item) => {
-          item.addEventListener('click', async () => {
-            let count = await fnFillLiks(userState.uid, item.id);
-            count += 1;
-            fnWriteLiks(item.id, userState.uid, count);
-            const insert = document.querySelectorAll('p.p_likes');
-            const likes = await fnFillLiks(userState.uid, item.id);
-            insert.forEach((x) => {
-              let itemid = item.id;
-              itemid = itemid.replace(/[^a-zA-Z0-9]/g, '');
-              let xid = x.id;
-              xid = xid.replace(/[^a-zA-Z0-9]/g, '');
-              if (itemid === xid) {
-                x.innerHTML = likes;
-              }
-            });
-          });
-        });
-        const listBtnDelete = document.querySelectorAll('input.delete');
-        listBtnDelete.forEach((item) => {
-          item.addEventListener('click', async () => {
-            const idPost = item.id;
-            const respuesta = window.confirm("¿Está seguro de eliminar este Post?");
-            (respuesta) ? fnDeletePost(userState.uid, idPost) : console.log('no se borro');
-            router();
-          });
-        });
-        const listBtnUpdate = document.querySelectorAll('input.update');
-        listBtnUpdate.forEach((item) => {
-          item.addEventListener('click', async () => {
-            const post = await fnposted(userState.uid, item.id);
-            document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
-            document.querySelector('.make_post_on_profile').style.display = "flex";
-            document.querySelector('.box_make_post').style.display = "flex";
-            document.querySelector('.box_make_post').addEventListener('submit', (e) => {
-              e.preventDefault();
-              const posted = document.querySelector('.text_post').value;
-              editPost(userState.uid, item.id, posted);
-              router();
-            });
-          });
-        });
+        fnEvenBtnCmmment();
+        fnEventBtnLiks();
+        fnEventBtnDelete();
+        fnEventBtnUpdate();
       } else {
         window.history.pushState({}, '', pages.home.path);
         router();
@@ -315,5 +256,76 @@ async function AllPost() {
     const listPost = posted.map((ite) => { return [item[filterKeys][ite].post, ite]; });
     const printPost = pages.post.template(listPost, img, name);
     insert.innerHTML += printPost;
+  });
+}
+
+function fnEvenBtnCmmment() {
+  const listelement = document.querySelectorAll('input.comment');
+  listelement.forEach((item) => {
+    item.addEventListener('click', () => {
+      const idPost = item.id;
+      objMain.innerHTML = pages.makeacomment.template;
+      fnPrintComments(idPost);
+      document.querySelector('.dateUserHome2').style.display = "flex";
+      document.querySelector('.ventana_modal_comment').style.display = "flex";
+      document.querySelector('.comment');
+      document.getElementById('form_make_comment').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const comment = document.querySelector('.make_comment').value;
+        fnWriteCommentFb(userState.uid, idPost, comment);
+        router();
+      });
+    });
+  });
+}
+function fnEventBtnLiks() {
+  const listBtnLike = document.querySelectorAll('input.like');
+  listBtnLike.forEach((item) => {
+    item.addEventListener('click', async () => {
+      let count = await fnFillLiks(userState.uid, item.id);
+      count += 1;
+      fnWriteLiks(item.id, userState.uid, count);
+      const insert = document.querySelectorAll('p.p_likes');
+      const likes = await fnFillLiks(userState.uid, item.id);
+      insert.forEach((x) => {
+        let itemid = item.id;
+        itemid = itemid.replace(/[^a-zA-Z0-9]/g, '');
+        let xid = x.id;
+        xid = xid.replace(/[^a-zA-Z0-9]/g, '');
+        if (itemid === xid) {
+          x.innerHTML = likes;
+        }
+      });
+    });
+  });
+}
+
+function fnEventBtnDelete() {
+  const listBtnDelete = document.querySelectorAll('input.delete');
+  listBtnDelete.forEach((item) => {
+    item.addEventListener('click', async () => {
+      const idPost = item.id;
+      const respuesta = window.confirm("¿Está seguro de eliminar este Post?");
+      (respuesta) ? fnDeletePost(userState.uid, idPost) : console.log('no se borro');
+      router();
+    });
+  });
+}
+
+function fnEventBtnUpdate() {
+  const listBtnUpdate = document.querySelectorAll('input.update');
+  listBtnUpdate.forEach((item) => {
+    item.addEventListener('click', async () => {
+      const post = await fnposted(userState.uid, item.id);
+      document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
+      document.querySelector('.make_post_on_profile').style.display = "flex";
+      document.querySelector('.box_make_post').style.display = "flex";
+      document.querySelector('.box_make_post').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const posted = document.querySelector('.text_post').value;
+        editPost(userState.uid, item.id, posted);
+        router();
+      });
+    });
   });
 }
