@@ -31,7 +31,7 @@ export const pages = {
         `,
   },
   home2: {
-    path: '/',
+    path: '/index',
     template: `<section class="dateUserHome">
                  <h1 class="tittle_home2"> Bienvenido a Social </h1>
                  <p class="nameUser"></p>
@@ -39,6 +39,8 @@ export const pages = {
                  <div><input class="btn_profile" type="button" value="Perfil"></div>
                  <div><input class="btn_make_post" type="button" value="Publicar"></div>
                  </div>
+                 <section class="make_post_on_profile">
+                 </section>
                </section> 
                <section class="all_post">
                 </section> 

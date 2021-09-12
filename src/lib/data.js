@@ -120,15 +120,27 @@ export function fnAllPost() {
 }
 
 export async function fnWriteCommentFb(idUser, idPost, comment) {
-  console.log(idPost);
   const idComment = uuid.v1();
   firebase.firestore().collection('users').doc(idUser).update({
     [`posted.${idPost}.comments.${idComment}.comment`]: comment,
     [`posted.${idPost}.comments.${idComment}.userId`]: idUser,
   });
 }
+// queda pendiente consulta para hacer comentarios a otro post que no sea del usuario
+export async function fnWriteCommentFbindex(currentUser, idPost, comment) {
+  console.log (idPost);
+  const idComment = uuid.v1();
+  const ref = firebase.firestore().collection('users');
+  const snapshot = await ref.whereArrayContains("posted", idPost).get();
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }
+  snapshot.forEach((doc) => {
+    console.log(doc.id, '=>', doc.data());
+  });
+}
 export async function fnWriteLiks(idPost, user, count) {
-  console.log(count);
   firebase.firestore().collection('users').doc(user).update({
     [`posted.${idPost}.like`]: count,
   });

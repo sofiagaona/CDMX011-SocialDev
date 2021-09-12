@@ -5,7 +5,7 @@ import {
 import {
   sendSingUp, sendLoginGoogle, fnLogOutFb, writeFareBase, readfirebase, fillposted,
   fnWriteCommentFb, fnFillComent, fnWriteLiks, fnFillLiks, fnDeletePost, fnposted, editPost,
-  fnAllPost,
+  fnAllPost, fnWriteCommentFbindex,
 } from './lib/data.js';
 
 let users = [];
@@ -56,8 +56,21 @@ async function fnSignUp(e) {
 }
 
 async function fnLoginGoogle() {
-  fnAuthGoogle();
-  if (userState) {
+  const userId = await fnAuthGoogle();
+  console.log(userId);
+  if (userId) {
+    writeFareBase(userId, 'namefirst', "");
+    writeFareBase(userId, 'city', "");
+    writeFareBase(userId, 'work', "");
+    writeFareBase(userId, 'post', "");
+    window.history.pushState({}, '', pages.home2.path);
+
+    fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
+      .then((res) => res.blob()) // Gets the response and returns it as a blob
+      .then((blob) => {
+        firebase.storage().ref(userId + '/profileimg.jpg').put(blob);
+      });
+
     router();
   }
 }
@@ -94,6 +107,19 @@ async function router() {
         document.querySelector('.nameUser').innerHTML = info;
         document.querySelector('.btn_profile').addEventListener('click', fnGoProfile);
         const posted = AllPost(userState.uid, userState.uid);
+        // modularizar esta parte con una funcion
+        document.querySelector(".btn_make_post").addEventListener('click', () => {
+          document.querySelector('.make_post_on_profile').innerHTML = pages.makeapost.template;
+          document.querySelector('.make_post_on_profile').style.display = "flex";
+          document.querySelector('.box_make_post').style.display = "flex";
+          document.querySelector('.subprofileimg3').src = img;
+          document.querySelector('.box_make_post').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const post = document.querySelector('.text_post').value;
+            writeFareBase(userState.uid, 'post', post);
+            router();
+          });
+        });
       } else {
         objMain.innerHTML = pages.home.template;
         const objBotonSingup = document.getElementById('id_home_text_registro');
@@ -179,8 +205,8 @@ async function router() {
             router();
           });
         });
-        fnEvenBtnCmmment();
-        fnEventBtnLiks();
+        fnEvenBtnCmmment(userState.uid);
+        fnEventBtnLiks(userState.uid);
         fnEventBtnDelete(userState.uid);
         fnEventBtnUpdate(userState.uid);
       } else {
@@ -219,13 +245,6 @@ async function fnPrintComments(idPost) {
   const printComment = pages.comment.template(listComment, name);
   insert.innerHTML = printComment;
 }
-
-/* async function fnEditarPost(idPost) {
-  const post = await fnposted(userState.uid, idPost);
-  document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
-  document.querySelector('.make_post_on_profile').style.display = "flex";
-  document.querySelector('.box_make_post').style.display = "flex";
-} */
 async function AllPost(currentUser, userId) {
   const insert = document.querySelector('.all_post');
   const snapshot = await fnAllPost();
@@ -256,18 +275,12 @@ async function AllPost(currentUser, userId) {
       listBtnUpdate.forEach((btnUpdate) => {
         btnUpdate.style.display = "none";
       });
-      fnEvenBtnCmmment();
-      fnEventBtnLiks();
-    } else {
-      fnEventBtnDelete(userId);
-      fnEventBtnUpdate(userId);
-      fnEvenBtnCmmment();
-      fnEventBtnLiks();
     }
+    // pendiente para commnet a cualquier post fnEvenBtnCmmmentIndex(userId);
   });
 }
 
-function fnEvenBtnCmmment() {
+function fnEvenBtnCmmment(currentUser) {
   const listelement = document.querySelectorAll('input.comment');
   listelement.forEach((item) => {
     item.addEventListener('click', () => {
@@ -280,21 +293,21 @@ function fnEvenBtnCmmment() {
       document.getElementById('form_make_comment').addEventListener('submit', (e) => {
         e.preventDefault();
         const comment = document.querySelector('.make_comment').value;
-        fnWriteCommentFb(userState.uid, idPost, comment);
+        fnWriteCommentFb(currentUser, idPost, comment);
         router();
       });
     });
   });
 }
-function fnEventBtnLiks() {
+function fnEventBtnLiks(currentUser) {
   const listBtnLike = document.querySelectorAll('input.like');
   listBtnLike.forEach((item) => {
     item.addEventListener('click', async () => {
-      let count = await fnFillLiks(userState.uid, item.id);
+      let count = await fnFillLiks(currentUser, item.id);
       count += 1;
-      fnWriteLiks(item.id, userState.uid, count);
+      fnWriteLiks(item.id, currentUser, count);
       const insert = document.querySelectorAll('p.p_likes');
-      const likes = await fnFillLiks(userState.uid, item.id);
+      const likes = await fnFillLiks(currentUser, item.id);
       insert.forEach((x) => {
         let itemid = item.id;
         itemid = itemid.replace(/[^a-zA-Z0-9]/g, '');
@@ -333,6 +346,26 @@ function fnEventBtnUpdate(currentUser) {
         e.preventDefault();
         const posted = document.querySelector('.text_post').value;
         editPost(currentUser, item.id, posted);
+        router();
+      });
+    });
+  });
+}
+// queda pendiente para funcionamiento de btn coment en cualquier post
+function fnEvenBtnCmmmentIndex(currentUser) {
+  const listelement = document.querySelectorAll('input.comment');
+  listelement.forEach((item) => {
+    item.addEventListener('click', () => {
+      const idPost = item.id;
+      objMain.innerHTML = pages.makeacomment.template;
+      // fnPrintComments(idPost);
+      document.querySelector('.dateUserHome2').style.display = "flex";
+      document.querySelector('.ventana_modal_comment').style.display = "flex";
+      document.querySelector('.comment');
+      document.getElementById('form_make_comment').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const comment = document.querySelector('.make_comment').value;
+        fnWriteCommentFbindex(currentUser, idPost, comment);
         router();
       });
     });
