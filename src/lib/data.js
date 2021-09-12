@@ -113,7 +113,7 @@ export function fnAllPost() {
     .then((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((element) => {
-        list.push(element.data());
+        list.push([element.data(), element.id]);
       });
       return list;
     });
@@ -139,7 +139,7 @@ export async function fnFillComent(user, idPost) {
     .then((quereySnapshot) => {
       const snapshot = quereySnapshot.data();
       const numcoment = Object.keys(snapshot);
-      const filterKeys = numcoment.filter((key) => { 
+      const filterKeys = numcoment.filter((key) => {
         if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
       });
       const comm = Object.keys(snapshot[filterKeys]);
@@ -154,7 +154,7 @@ export async function fnFillLiks(user, idPost) {
     .then((doc) => {
       const snapshot = doc.data();
       const numLiks = Object.keys(snapshot);
-      const filterKeys = numLiks.filter((key) => { 
+      const filterKeys = numLiks.filter((key) => {
         if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
       });
       const like = Object.keys(snapshot[filterKeys]);
@@ -177,7 +177,7 @@ export async function fnposted(user, idPost) {
     .then((quereyPost) => {
       const snapshot = quereyPost.data();
       const numPost = Object.keys(snapshot);
-      const filterKeys = numPost.filter((key) => { 
+      const filterKeys = numPost.filter((key) => {
         if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
       });
       const post = Object.keys(snapshot[filterKeys]);

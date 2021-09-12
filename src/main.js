@@ -38,20 +38,6 @@ async function fnSignUp(e) {
       writeFareBase(users.uid, 'city', "");
       writeFareBase(users.uid, 'work', "");
       writeFareBase(users.uid, 'post', "");
-      // fnSaveUid(users.uid);
-      // idDoc = uuid.v1();
-      // console.log(idDoc);
-      // firebase.firestore().collection('users').doc(users.uid).set({});
-      /* firebase.firestore().collection('users').doc(users.uid).set({
-        [idDoc]: {
-          name: "",
-          work: "",
-          city: "",
-          post: "",
-          comments: "",
-          likes: 0,
-        },
-      }); */
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
@@ -101,15 +87,13 @@ async function router() {
       if (userState) {
         const info = await readfirebase(userState.uid, 'name');
         const img = await readfirebase(userState.uid, 'img');
-        // const idCollection = fnSaveUid();
-        // AllPost();
         objMain.innerHTML = pages.home2.template;
         document.querySelector('.profileimg').src = img;
         // document.querySelector('.subprofileimg').src = img;
         // document.querySelector('.subnameuser').innerHTML = info;
         document.querySelector('.nameUser').innerHTML = info;
         document.querySelector('.btn_profile').addEventListener('click', fnGoProfile);
-        const posted = AllPost();
+        const posted = AllPost(userState.uid, userState.uid);
       } else {
         objMain.innerHTML = pages.home.template;
         const objBotonSingup = document.getElementById('id_home_text_registro');
@@ -197,8 +181,8 @@ async function router() {
         });
         fnEvenBtnCmmment();
         fnEventBtnLiks();
-        fnEventBtnDelete();
-        fnEventBtnUpdate();
+        fnEventBtnDelete(userState.uid);
+        fnEventBtnUpdate(userState.uid);
       } else {
         window.history.pushState({}, '', pages.home.path);
         router();
@@ -217,7 +201,7 @@ async function fnPrintPosted() {
   const insert = document.querySelector('.all_profile_post');
   const snapshot = await fillposted(userState.uid);
   const numpost = Object.keys(snapshot);
-  const filterKeys = numpost.filter((key) => { 
+  const filterKeys = numpost.filter((key) => {
     if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
   });
   const posted = Object.keys(snapshot[filterKeys]);
@@ -236,26 +220,50 @@ async function fnPrintComments(idPost) {
   insert.innerHTML = printComment;
 }
 
-async function fnEditarPost(idPost) {
+/* async function fnEditarPost(idPost) {
   const post = await fnposted(userState.uid, idPost);
   document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
   document.querySelector('.make_post_on_profile').style.display = "flex";
   document.querySelector('.box_make_post').style.display = "flex";
-}
-async function AllPost() {
-  const img = await readfirebase(userState.uid, 'img');
-  const name = await readfirebase(userState.uid, 'name');
+} */
+async function AllPost(currentUser, userId) {
   const insert = document.querySelector('.all_post');
   const snapshot = await fnAllPost();
-  const allPost = snapshot.map((item) => {
+  snapshot.forEach(async (element) => {
+    const item = element[0];
+    const idUserPost = element[1];
     const numpost = Object.keys(item);
-    const filterKeys = numpost.filter((key) => { 
+    const filterKeys = numpost.filter((key) => {
       if ((key !== 'work') && (key !== 'name') && (key !== 'city')) { return key; }
     });
     const posted = Object.keys(item[filterKeys]);
     const listPost = posted.map((ite) => { return [item[filterKeys][ite].post, ite]; });
+    const filterName = numpost.filter((key) => {
+      if ((key !== 'work') && (key !== 'posted') && (key !== 'city')) { return key; }
+    });
+    const name = item.name;
+    const img = await readfirebase(idUserPost, 'img');
     const printPost = pages.post.template(listPost, img, name);
     insert.innerHTML += printPost;
+    const currentUserstr = currentUser.replace(/[^a-zA-Z0-9]/g, '');
+    const idUserPoststr = idUserPost.replace(/[^a-zA-Z0-9]/g, '');
+    if (currentUserstr !== idUserPoststr) {
+      const listBtnDelete = document.querySelectorAll('input.delete');
+      listBtnDelete.forEach((btnDelete) => {
+        btnDelete.style.display = "none";
+      });
+      const listBtnUpdate = document.querySelectorAll('input.update');
+      listBtnUpdate.forEach((btnUpdate) => {
+        btnUpdate.style.display = "none";
+      });
+      fnEvenBtnCmmment();
+      fnEventBtnLiks();
+    } else {
+      fnEventBtnDelete(userId);
+      fnEventBtnUpdate(userId);
+      fnEvenBtnCmmment();
+      fnEventBtnLiks();
+    }
   });
 }
 
@@ -300,30 +308,31 @@ function fnEventBtnLiks() {
   });
 }
 
-function fnEventBtnDelete() {
+function fnEventBtnDelete(currentUser) {
   const listBtnDelete = document.querySelectorAll('input.delete');
   listBtnDelete.forEach((item) => {
     item.addEventListener('click', async () => {
       const idPost = item.id;
       const respuesta = window.confirm("¿Está seguro de eliminar este Post?");
-      (respuesta) ? fnDeletePost(userState.uid, idPost) : console.log('no se borro');
+      (respuesta) ? fnDeletePost(currentUser, idPost) : console.log('no se borro');
       router();
     });
   });
 }
 
-function fnEventBtnUpdate() {
+function fnEventBtnUpdate(currentUser) {
+  console.log(currentUser);
   const listBtnUpdate = document.querySelectorAll('input.update');
   listBtnUpdate.forEach((item) => {
     item.addEventListener('click', async () => {
-      const post = await fnposted(userState.uid, item.id);
+      const post = await fnposted(currentUser, item.id);
       document.querySelector('.make_post_on_profile').innerHTML = pages.editpost.template(post);
       document.querySelector('.make_post_on_profile').style.display = "flex";
       document.querySelector('.box_make_post').style.display = "flex";
       document.querySelector('.box_make_post').addEventListener('submit', (e) => {
         e.preventDefault();
         const posted = document.querySelector('.text_post').value;
-        editPost(userState.uid, item.id, posted);
+        editPost(currentUser, item.id, posted);
         router();
       });
     });

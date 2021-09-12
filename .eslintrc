@@ -39,7 +39,9 @@
     "prefer-promise-reject-errors": 0,
     "import/named":0,
     "no-unused-expressions":0,
-    "new-parens":0
+    "new-parens":0,
+    "array-callback-return":0,
+    "no-param-reassign":0
   
 
 
