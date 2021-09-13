@@ -48,16 +48,15 @@ async function fnSignUp(e) {
 
       router();
     } else {
-      signUpPasswordError.innerHTML = 'Usuario o contraseña no son validos';
+      signUpPasswordError.outerHTML = 'Usuario o contraseña no son validos';
     }
   } else {
-    signUpPasswordError.innerHTML = 'Las contraseñas no son iguales';
+    signUpPasswordError.outerHTML = 'Las contraseñas no son iguales';
   }
 }
 
 async function fnLoginGoogle() {
   const userId = await fnAuthGoogle();
-  console.log(userId);
   if (userId) {
     writeFareBase(userId, 'namefirst', "");
     writeFareBase(userId, 'city', "");

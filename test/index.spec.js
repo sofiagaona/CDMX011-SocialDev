@@ -41,7 +41,7 @@ describe('Pruebas de Red Social', () => {
     const password = '12345678';
     const user = { email, uid: 'xxxxxxx' };
     const mockSignInWithEmailAndPassword = jest.fn();
-    mockSignInWithEmailAndPassword.mockResolvedValue(user);
+    mockSignInWithEmailAndPassword.mockResolvedValue(user);// simula fn async en test async
     const mockFirebaseAuth = {
       signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
       currentUser: user,

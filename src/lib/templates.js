@@ -31,7 +31,7 @@ export const pages = {
         `,
   },
   home2: {
-    path: '/index',
+    path: '/',
     template: `<section class="dateUserHome">
                  <h1 class="tittle_home2"> Bienvenido a Social </h1>
                  <p class="nameUser"></p>
@@ -182,8 +182,10 @@ export const pages = {
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
       <div class="posted"><p id="publicacion">${element[0]}</p>
+      <div class="box_btn_delete_update">
       <input type="button" id="${element[1]}" class="delete" value="Eliminar">
       <input type="button" id="${element[1]}" class="update" value="Actualizar">
+      </div>
       </div>
       <div class="box_post_btn">
           <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p id="${element[1]} "class="p_likes"></p>
@@ -225,8 +227,7 @@ export const pages = {
       listComment.forEach((element) => {
         if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
           results += `
-          <p id="textName">${name}</p>
-          <p id="textComment">${element}</p>
+          <p id="textName" class="titleData">${name}: <span id="textComment" class="nameUserProfile dataProfile">${element}</span></p>
           `;
         }
       });

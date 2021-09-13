@@ -577,6 +577,43 @@ flex-direction: row;
   background: rgba(20, 33, 61, 0.3);
   border-radius: 5px;
 }
+.box_btn_delete_update{
+  display: flex;
+  flex-direction: row;
+  margin-top: 4em;
+  justify-content:space-around;
+}
+.delete, .update{
+  width: 7em;
+  height: 2em;
+  background: rgba(252, 163, 17, 0.7);
+  border-radius: 5px;
+  border-style: none;
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: .8em;
+  text-align:center;
+  letter-spacing: -0.02em;
+  color: rgba(20, 33, 61, 0.9);
+ justify-content: right;
+}
+.posted > p{
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-size: 1em;
+  text-align:justify;
+  letter-spacing: -0.02em;
+  color: rgb(10, 18, 36);
+}
+.subnameuser{
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-size: 1.1em;
+  text-align:justify;
+  letter-spacing: -0.02em;
+  color: rgb(20, 33, 61);
+}
 
 
 @media screen and (min-width : 450px) and (max-width : 639px){

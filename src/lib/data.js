@@ -128,7 +128,6 @@ export async function fnWriteCommentFb(idUser, idPost, comment) {
 }
 // queda pendiente consulta para hacer comentarios a otro post que no sea del usuario
 export async function fnWriteCommentFbindex(currentUser, idPost, comment) {
-  console.log (idPost);
   const idComment = uuid.v1();
   const ref = firebase.firestore().collection('users');
   const snapshot = await ref.whereArrayContains("posted", idPost).get();
