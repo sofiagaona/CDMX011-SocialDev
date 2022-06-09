@@ -24,11 +24,17 @@ export async function fnLogin(loginEmail, loginPassword) {
 
 export async function fnAuthGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  console.log(provider);
-  const message = await sendLoginGoogle(provider);
+  return firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user.uid;
+      // window.history.pushState({}, '', pages.home2.path);
+      return user;
+    });
+  /* const message = await sendLoginGoogle(provider);
   try {
+    console.log(message);
     window.history.pushState({}, '', pages.home2.path);
   } catch (error) {
     return message;
-  }
+  } */
 }

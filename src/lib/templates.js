@@ -38,13 +38,12 @@ export const pages = {
                  <div><img class="profileimg" src=""></div>
                  <div><input class="btn_profile" type="button" value="Perfil"></div>
                  <div><input class="btn_make_post" type="button" value="Publicar"></div>
-                 <div class="box_post">
-                 <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-                 <div class="posted"><p>Esta es una Publicacion</p></div>
-                 <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-                 <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
                  </div>
-               </section>  
+                 <section class="make_post_on_profile">
+                 </section>
+               </section> 
+               <section class="all_post">
+                </section> 
                  `,
   },
   singUp: {
@@ -107,13 +106,17 @@ export const pages = {
          <p class="titleData">Lugar de trabajo: <span class="workUser dataProfile"></span></p>
       </div>
       <div><input class="btn_make_post" type="button" value="Publicar"></div>
-      <div class="box_post">
-        <div class="box_post_img"><img class="subprofileimg"src=""><p class="subnameuser"></p></div>
-        <div class="posted"><p>Esta es una Publicacion</p></div>
-        <div class="box_post_btn"><p class="menu_btn_text" id="click_like">Me Gusta</p><p class="menu_btn_text" id="click_share">compartir</p><p class="menu_btn_text" id="click_coment">Comentar</p></div>
-        <div><input class="texttopost" type="text" placeholder="Escribe aqui tu publicacion"></div>
-      </div>
-    </section>  
+      
+    </section>
+    
+    <section class="all_profile_post">
+    </section>
+
+    <section class="make_post_on_profile">
+    </section>
+
+    <section class="edit_profile_post">
+    </section>
 
     <section class="dateUserHome1">
       <div class="ventana_modal_editar">
@@ -122,9 +125,9 @@ export const pages = {
         <p class="nameUser"></p>
 
         <div class="uploadpicture">
-          <div class="box_post_img"><img class="subprofileimg2"src=""></div>
+          <div class="box_post_img"><img class="subprofileimg2"src=""><p id="porcent_carga"></p></div>
           <div class="form"><p>Cambiar Imagen</p></div>
-          <input type="file" id="idfile" class="load_file" value="Subir Foto">
+          <input type="file" id="idfile" class="load_file">
         </div> 
 
         <div style="width: 100%">
@@ -140,5 +143,121 @@ export const pages = {
 
     `,
 
+  },
+  makeapost: {
+    path: '/makespost',
+    template: `
+  
+    <form class="box_make_post">
+      <div class="box_post_img">
+        <img class="subprofileimg3"src="">
+        <p class="subnameuser"></p>
+      </div>
+      <div class="post_publish">
+        <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text' required></textarea>
+        <div class="box_post_btn_publish">
+          <div class="btn_post_publisher"> 
+            <img class="menu_btn_publish" src="./img/likeicon.png">
+            <img class="menu_btn_publish" src="./img/shericon2.png">
+            <img class="menu_btn_publish" src="./img/coment.png">
+          </div>  
+          <div>
+            <button type="submit" id="publish_post_profile">Publicar</button>
+          </div>
+        </div>  
+      </div> 
+    </form>
+   
+    `,
+
+  },
+  post: {
+    path: '/post',
+    template: (posts, imgP, name) => {
+      let result = ``;
+      if ((posts.length === 0)) { console.log('no imprime vacio'); } else {
+        posts.forEach((element) => {
+          if ((element[0] === ' ') || (element[0] === '')) { console.log('no imrime en blanco'); } else {
+            result += `
+      <div class="box_post">
+      <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
+      <div class="posted"><p id="publicacion">${element[0]}</p>
+      <div class="box_btn_delete_update">
+      <input type="button" id="${element[1]}" class="delete" value="Eliminar">
+      <input type="button" id="${element[1]}" class="update" value="Actualizar">
+      </div>
+      </div>
+      <div class="box_post_btn">
+          <input type="image" class="like menu_btn_text" id="${element[1]}" src="./img/likeicon.png"><p id="${element[1]} "class="p_likes"></p>
+          <img class="menu_btn_text" src="./img/shericon2.png">
+          <input type="image" id="${element[1]}" class="comment menu_btn_text" src="./img/coment.png">
+      </div>
+    
+    </div>
+
+    `;
+          }
+        });
+        return result;
+      }
+    },
+  },
+  makeacomment: {
+    path: '/comment',
+    template: `
+  
+  <section class="dateUserHome2">
+    <div class="ventana_modal_comment">
+    <section class="all_post_comment">
+    </section>
+      <form id="form_make_comment" class="form">
+        <input type="text" class="make_comment" placeholder="Hacer comentario" required>
+        <button type="submint" class="send_comment">Enviar</button>
+      </form>
+    </div>
+  </section> 
+   
+    `,
+
+  },
+  comment: {
+    path: '/comment',
+    template: (listComment, name) => {
+      let results = ``;
+      listComment.forEach((element) => {
+        if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
+          results += `
+          <p id="textName" class="titleData">${name}: <span id="textComment" class="nameUserProfile dataProfile">${element}</span></p>
+          `;
+        }
+      });
+      return results;
+    },
+  },
+  editpost: {
+    path: '/editpost',
+    template: (post) => {
+      const results = `
+       <form class="box_make_post">
+          <p class="subnameuser"></p>
+        </div>
+        <div class="post_publish">
+          <textarea class='text_post' type ='text'>${post}</textarea>
+          <div class="box_post_btn_publish">
+            <div class="btn_post_publisher"> 
+              <img class="menu_btn_publish" src="./img/likeicon.png">
+              <img class="menu_btn_publish" src="./img/shericon2.png">
+              <img class="menu_btn_publish" src="./img/coment.png">
+            </div>  
+            <div>
+              <button type="submit" id="publish_post_profile">Editar</button>
+            </div>
+          </div>  
+        </div> 
+      </form>
+     
+      `;
+      return results;
+    },
   },
 };

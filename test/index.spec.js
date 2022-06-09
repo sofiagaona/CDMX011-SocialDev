@@ -4,29 +4,11 @@
 import './globals/firebase.js';
 import MockFirebase from 'mock-cloud-firestore';
 import * as admin from "firebase-admin";
-// import { firebase } from './firebase-mock';
-import { createBtnReg } from '../src/lib/elementTest.js';
 import { sendLogin, sendLoginGoogle, fnLogOutFb } from '../src/lib/data.js';
 import {
   fnPageSignUp, objMain, fnPagesLogin, fnLogin,
 } from '../src/lib/nodemod';
 import { pages } from '../src/lib/templates.js';
-
-/* configurando firebase mock
-const firebasemock = firebase;
-const mockauth = new firebasemock.MockFirebase();
-const mockfirestore = new firebasemock.MockFirestore();
-mockfirestore.autoFlush();
-mockauth.autoFlush(); */
-
-/* global.firebase = firebasemock.MockFirebaseSdk(
-  // use null if your code does not use RTDB
-  () => null,
-  () => mockauth,
-  () => mockfirestore,
-); */
-/* global.firebase = new MockFirebase();
-const btnMenuRegister = createBtnReg(); */
 
 describe('Pruebas de Red Social', () => {
   test('Verifica HTML en Home', () => {
@@ -59,7 +41,7 @@ describe('Pruebas de Red Social', () => {
     const password = '12345678';
     const user = { email, uid: 'xxxxxxx' };
     const mockSignInWithEmailAndPassword = jest.fn();
-    mockSignInWithEmailAndPassword.mockResolvedValue(user);
+    mockSignInWithEmailAndPassword.mockResolvedValue(user);// simula fn async en test async
     const mockFirebaseAuth = {
       signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
       currentUser: user,
@@ -67,7 +49,7 @@ describe('Pruebas de Red Social', () => {
     firebase.auth = () => mockFirebaseAuth;
     sendLogin(email, password)
       .then((users) => {
-        expect(user.email).toBe('sofiah@1234.com');
+        expect(users.email).toBe('sofiah@1234.com');
       });
   });
   test('Deberia mostrar error al iniciar sesion con credenciales invalidas', () => {
