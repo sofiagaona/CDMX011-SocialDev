@@ -12,7 +12,7 @@ let users = [];
 
 let userState = firebase.auth().currentUser;
 document.getElementById('idLogOut').addEventListener('click', fnLogOut);
-// obtiene el usuario actual al establecer un observador en el objeto
+// Autenticacion de Usuario al Entrar a la App o al cambiar de estado
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     document.getElementById('idLogOut').style.display = 'block';
@@ -41,7 +41,7 @@ async function fnSignUp(e) {
       window.history.pushState({}, '', pages.home2.path);
 
       fetch("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
-        .then((res) => res.blob())
+        .then((res) => res.blob()) // Gets the response and returns it as a blob
         .then((blob) => {
           firebase.storage().ref(users.uid + '/profileimg.jpg').put(blob);
         });
@@ -274,9 +274,6 @@ async function AllPost(currentUser, userId) {
       listBtnUpdate.forEach((btnUpdate) => {
         btnUpdate.style.display = "none";
       });
-    } else {
-      fnEventBtnDelete();
-      fnEventBtnUpdate();
     }
     // pendiente para commnet a cualquier post fnEvenBtnCmmmentIndex(userId);
   });
