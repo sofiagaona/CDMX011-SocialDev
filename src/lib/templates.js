@@ -150,13 +150,14 @@ export const pages = {
       </div>
       <div class="post_publish">
         <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text' required></textarea>
-        <div class="box_post_btn_publish">
+        <!--<div class="box_post_btn_publish">
           <div class="btn_post_publisher"> 
             <img class="menu_btn_publish" src="img/likeicon.png">
             <img class="menu_btn_publish" src="./img/shericon2.png">
             <img class="menu_btn_publish" src="./img/coment.png">
           </div>  
-          <div>
+          <div> -->
+          <h1>Prueba sofia</h1>
             <button type="submit" id="publish_post_profile">Publicar</button>
           </div>
         </div>  
