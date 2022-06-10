@@ -1,9 +1,7 @@
 export const pages = {
-  home:
-  {
-    path: '/',
-    template:
-      `<section class="page_home">
+  home: {
+    path: "/",
+    template: `<section class="page_home">
 
         <p class="subtitle" > Unete a la comunidad más grande de desarrolladores!!! </p>
 
@@ -31,7 +29,7 @@ export const pages = {
         `,
   },
   home2: {
-    path: '/',
+    path: "/",
     template: `<section class="dateUserHome">
                  <h1 class="tittle_home2"> Bienvenido a Social </h1>
                  <p class="nameUser"></p>
@@ -47,7 +45,7 @@ export const pages = {
                  `,
   },
   singUp: {
-    path: '/singup',
+    path: "/singup",
     template: `
     <section>
       <div class="box_general_singup">
@@ -69,10 +67,9 @@ export const pages = {
       </div> 
     </section>
     `,
-
   },
   login: {
-    path: '/login',
+    path: "/login",
     template: `
   <section>
   <div class="box_singup">
@@ -90,10 +87,9 @@ export const pages = {
     
   </section>
   `,
-
   },
   profile: {
-    path: '/profile',
+    path: "/profile",
     template: `
     <section class="dateUserHome">
       <h1 class="tittle_home2">Perfil</h1>
@@ -142,10 +138,9 @@ export const pages = {
     </section> 
 
     `,
-
   },
   makeapost: {
-    path: '/makespost',
+    path: "/makespost",
     template: `
   
     <form class="box_make_post">
@@ -155,13 +150,14 @@ export const pages = {
       </div>
       <div class="post_publish">
         <textarea class='text_post' placeholder='¿Qué te gustaria públicar?' type ='text' required></textarea>
-        <div class="box_post_btn_publish">
+        <!--<div class="box_post_btn_publish">
           <div class="btn_post_publisher"> 
             <img class="menu_btn_publish" src="./img/likeicon.png">
             <img class="menu_btn_publish" src="./img/shericon2.png">
             <img class="menu_btn_publish" src="./img/coment.png">
           </div>  
-          <div>
+          <div> -->
+          <h1>Prueba sofia</h1>
             <button type="submit" id="publish_post_profile">Publicar</button>
           </div>
         </div>  
@@ -169,15 +165,18 @@ export const pages = {
     </form>
    
     `,
-
   },
   post: {
-    path: '/post',
+    path: "/post",
     template: (posts, imgP, name) => {
       let result = ``;
-      if ((posts.length === 0)) { console.log('no imprime vacio'); } else {
+      if (posts.length === 0) {
+        console.log("no imprime vacio");
+      } else {
         posts.forEach((element) => {
-          if ((element[0] === ' ') || (element[0] === '')) { console.log('no imrime en blanco'); } else {
+          if (element[0] === " " || element[0] === "") {
+            console.log("no imrime en blanco");
+          } else {
             result += `
       <div class="box_post">
       <div class="box_post_img"><img class="subprofileimg"src="${imgP}"><p class="subnameuser">${name}</p><p class="date_posted"></p></div>
@@ -203,7 +202,7 @@ export const pages = {
     },
   },
   makeacomment: {
-    path: '/comment',
+    path: "/comment",
     template: `
   
   <section class="dateUserHome2">
@@ -218,14 +217,15 @@ export const pages = {
   </section> 
    
     `,
-
   },
   comment: {
-    path: '/comment',
+    path: "/comment",
     template: (listComment, name) => {
       let results = ``;
       listComment.forEach((element) => {
-        if ((element === ' ') || (element === '')) { console.log('no imrime en blanco'); } else {
+        if (element === " " || element === "") {
+          console.log("no imrime en blanco");
+        } else {
           results += `
           <p id="textName" class="titleData">${name}: <span id="textComment" class="nameUserProfile dataProfile">${element}</span></p>
           `;
@@ -235,7 +235,7 @@ export const pages = {
     },
   },
   editpost: {
-    path: '/editpost',
+    path: "/editpost",
     template: (post) => {
       const results = `
        <form class="box_make_post">
